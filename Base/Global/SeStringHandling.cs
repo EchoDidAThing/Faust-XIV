@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActionTimelineReplacement.Base.Global;
+namespace Faust.Base.Global;
 
 internal class SeStringHandling
 {

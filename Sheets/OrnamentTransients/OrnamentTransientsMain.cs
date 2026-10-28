@@ -1,6 +1,5 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Base.Setups;
-using ActionTimelineReplacement.Interface;
+﻿using Faust.Base.Global;
+using Faust.Interface;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Game.Config;
 using Dalamud.Interface;
@@ -13,7 +12,7 @@ using System.Xml.Linq;
 using static FFXIVClientStructs.FFXIV.Client.UI.Misc.AozNoteModule;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 #region Main
 public class OrnamentTransientsMain
@@ -43,15 +42,12 @@ public class OrnamentTransientsMain
 
                     using (ImRaii.PushFont(UiBuilder.IconFont)) {
                         if (UiGlobals.DrawDeleteEntryButton($"{FontAwesomeIcon.Trash.ToIconString()}##{key}")) {
-                            Setup.SetupByType(key, type, true);
                             Writer.Remove(key);
                             Service.Config.Save();
                         }
                     }
                     if (ImGui.Checkbox("##" + key, ref LocalWriter.Enabled)) {
                         enablechanges = UiGlobals.CheckIsEnabled(Service.Config.EnableReplacement, _activeSet, LocalWriter.Enabled);
-                        if (enablechanges) Setup.SetupByType(key, type); 
-                        else Setup.SetupByType(key, type, true);
                         Service.Config.Save();
                     }
                     ImGui.SameLine();

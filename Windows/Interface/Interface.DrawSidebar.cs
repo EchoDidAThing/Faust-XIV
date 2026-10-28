@@ -1,6 +1,5 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Base.Setups;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust.Base.Global;
+using Faust.Sheets;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility.Raii;
@@ -12,7 +11,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Interface;
+namespace Faust.Interface;
 
 public sealed partial class ConfigWindow : Window
 {
@@ -69,8 +68,6 @@ public sealed partial class ConfigWindow : Window
                         if (_activeSet == Service.Config.ReplacementSets[i]) _activeSet = null;
                         Service.Config.ReplacementSets.Remove(set);
                         Service.Config.Save();
-                        Setup.SetupAll(true);
-                        Setup.SetupAll();
                         ImGui.CloseCurrentPopup();
                     }
                 }
@@ -101,7 +98,6 @@ public sealed partial class ConfigWindow : Window
                     {
                         if (Configuration.ReplacementSet.Load(file) is not { } set) continue;
                         Service.Config.ReplacementSets.Add(set);
-                        Setup.SetupAll();
                     }
                     Service.Config.Save();
                 }, 10, ".");
@@ -121,7 +117,7 @@ public sealed partial class ConfigWindow : Window
                 if (string.IsNullOrEmpty(localname)) { return; }
                 foreach (var set in Service.Config.ReplacementSets) { if (set.Name == localname) { exists = true; break; } }
                 if (exists) { return; }
-                Service.Config.ReplacementSets.Add(new Configuration.ReplacementSet((string)localname, true, 0, new Configuration.JobArray(), Service.PlayerState.CharacterName, Service.PlayerState.HomeWorld.RowId, [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []));
+                Service.Config.ReplacementSets.Add(new Configuration.ReplacementSet((string)localname, true, 0, new Configuration.JobArray(), Service.PlayerState.CharacterName, Service.PlayerState.HomeWorld.RowId, [], [], [], [], [], [], [], [], []));
                 CreateName = "";
                 Service.Config.Save();
 

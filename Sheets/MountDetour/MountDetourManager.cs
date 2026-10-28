@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Lumina.Excel.Sheets;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 public static class MountDetourManager
 {

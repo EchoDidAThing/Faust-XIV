@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using ActionTimelineReplacement.Base.Structs;
+using Faust.Base.Structs;
 
-namespace ActionTimelineReplacement.Base;
+namespace Faust.Base;
 
 public static unsafe class Hooks
 {

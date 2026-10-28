@@ -1,4 +1,4 @@
-﻿using ActionTimelineReplacement.Sheets;
+﻿using Faust.Sheets;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Utility;
@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ActionTimelineReplacement.Base.Global;
+namespace Faust.Base.Global;
 internal class DetourGlobals
 {
     //private void ReplaceSeString(ref SeString seString, string baseString, string replaceString)

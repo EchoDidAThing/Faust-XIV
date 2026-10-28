@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ActionTimelineReplacement;
+using Faust;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
-using ActionTimelineReplacement.Base.Detours;
+using Faust.Base.Detours;
 
-namespace ActionTimelineReplacement;
+namespace Faust;
 
 internal class Events
 {

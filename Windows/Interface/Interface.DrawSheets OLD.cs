@@ -1,13 +1,13 @@
 ﻿/*using System.Numerics;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
-using ActionTimelineReplacement.Base.Global;
+using Faust.Base.Global;
 using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
-using ActionTimelineReplacement.Sheets;
+using Faust.Sheets;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Interface;
+namespace Faust.Interface;
 
 public sealed partial class ConfigWindow : Window
 {

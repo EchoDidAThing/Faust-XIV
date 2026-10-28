@@ -7,7 +7,7 @@ using FFXIVClientStructs.FFXIV.Client.Graphics;
 using Newtonsoft.Json;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 [Serializable]
 public class Configuration : IPluginConfiguration
@@ -139,31 +139,15 @@ public class Configuration : IPluginConfiguration
     JobArray jobarray,
     string charactername,
     uint homeworld,
-    Dictionary<uint, ActionConfig> actionwriter,
-    Dictionary<uint, ActionCastVFXConfig> actioncastvfxwriter,
     Dictionary<uint, ActionTransientsConfig> actiontransientswriter,
-    Dictionary<uint, ActionTimelineConfig> actiontimelinewriter,
     Dictionary<uint, CompanionTransientsConfig> companiontransientswriter,
     Dictionary<uint, JobTransientsConfig> jobtransientswriter,
-    Dictionary<uint, MountConfig> mountwriter,
-    Dictionary<uint, MountCustomizeConfig> mountcustomizewriter,
     Dictionary<uint, MountLightConfig> mountlightwriter,
     Dictionary<uint, MountDetourConfig> mountdetourwriter,
     Dictionary<uint, MountTransientsConfig> mounttransientswriter,
     Dictionary<uint, OrnamentTransientsConfig> ornamenttransientswriter,
-    Dictionary<uint, StatusConfig> statuswriter,
-    Dictionary<uint, StatusLoopVFXConfig> statusloopvfxwriter,
-    Dictionary<uint, StatusHitEffectConfig> statushiteffectwriter,
     Dictionary<uint, StatusTransientsConfig> statustransientswriter,
-    Dictionary<uint, TiltParamConfig> tiltparamwriter,
-    Dictionary<uint, TraitTransientsConfig> traittransientswriter,
-    Dictionary<uint, GlassesConfig> glasseswriter,
-    Dictionary<uint, GlassesStyleConfig> glassesstylewriter,
-    //Dictionary<uint, PlaceNameConfig> placenamewriter,
-    Dictionary<uint, OrnamentConfig> ornamentwriter,
-    Dictionary<uint, OrnamentCustomizeConfig> ornamentcustomizewriter,
-    Dictionary<uint, VfxConfig> vfxwriter)
-    //Dictionary<uint, OrnamentCustomizeGroupConfig> ornamentcustomizegroupwriter)
+    Dictionary<uint, TraitTransientsConfig> traittransientswriter)
     {
         public string Name = name;
 
@@ -178,33 +162,16 @@ public class Configuration : IPluginConfiguration
         public uint HomeWorld = homeworld;
 
         //TOSETUP: add new dictionary here
-        public Dictionary<uint, ActionConfig> ActionWriter { get; set; } = actionwriter;
-        public Dictionary<uint, ActionCastVFXConfig> ActionCastVFXWriter { get; set; } = actioncastvfxwriter;
-        public Dictionary<uint, ActionTimelineConfig> ActionTimelineWriter { get; set; } = actiontimelinewriter;
         public Dictionary<uint, ActionTransientsConfig> ActionTransientsWriter { get; set; } = actiontransientswriter;
         public Dictionary<uint, CompanionTransientsConfig> CompanionTransientsWriter { get; set; } = companiontransientswriter;
         public Dictionary<uint, JobTransientsConfig> JobTransientsWriter { get; set; } = jobtransientswriter;
-        public Dictionary<uint, MountConfig> MountWriter { get; set; } = mountwriter;
-        public Dictionary<uint, MountCustomizeConfig> MountCustomizeWriter { get; set; } = mountcustomizewriter;
-        public Dictionary<uint, MountLightConfig> MountLightWriter { get; set; } = mountlightwriter;
         public Dictionary<uint, MountDetourConfig> MountDetourWriter { get; set; } = mountdetourwriter;
+        public Dictionary<uint, MountLightConfig> MountLightWriter { get; set; } = mountlightwriter;
         public Dictionary<uint, MountTransientsConfig> MountTransientsWriter { get; set; } = mounttransientswriter;
         public Dictionary<uint, OrnamentTransientsConfig> OrnamentTransientsWriter { get; set; } = ornamenttransientswriter;
-        public Dictionary<uint, TiltParamConfig> TiltParamWriter { get; set; } = tiltparamwriter;
-        public Dictionary<uint, TraitTransientsConfig> TraitTransientsWriter { get; set; } = traittransientswriter;
-        public Dictionary<uint, StatusConfig> StatusWriter { get; set; } = statuswriter;
-        public Dictionary<uint, StatusLoopVFXConfig> StatusLoopVFXWriter { get; set; } = statusloopvfxwriter;
-        public Dictionary<uint, StatusHitEffectConfig> StatusHitEffectWriter { get; set; } = statushiteffectwriter;
         public Dictionary<uint, StatusTransientsConfig> StatusTransientsWriter { get; set; } = statustransientswriter;
-        public Dictionary<uint, GlassesConfig> GlassesWriter { get; set; } = glasseswriter;
-        public Dictionary<uint, GlassesStyleConfig> GlassesStyleWriter { get; set; } = glassesstylewriter;
-        //public Dictionary<uint, PlaceNameConfig> PlaceNameWriter { get; set; } = placenamewriter;
-        public Dictionary<uint, OrnamentConfig> OrnamentWriter { get; set; } = ornamentwriter;
-        public Dictionary<uint, OrnamentCustomizeConfig> OrnamentCustomizeWriter { get; set; } = ornamentcustomizewriter;
-        public Dictionary<uint, VfxConfig> VfxWriter { get; set; } = vfxwriter;
-        //public Dictionary<uint, OrnamentCustomizeGroupConfig> OrnamentCustomizeGroupWriter { get; set; } = ornamentcustomizegroupwriter;
-        //public Dictionary<float, PointMenuChoiceConfig> PointMenuChoiceWriter { get; set; } = pointmenuchoicewriter; //not really float, but it kind of is?
-
+        public Dictionary<uint, TraitTransientsConfig> TraitTransientsWriter { get; set; } = traittransientswriter;
+        
         public static ReplacementSet? Load(string jsonFile)
         {
             try

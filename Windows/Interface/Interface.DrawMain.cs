@@ -1,6 +1,5 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Base.Setups;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust.Base.Global;
+using Faust.Sheets;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility;
@@ -15,7 +14,7 @@ using System.Numerics;
 using System.Threading.Channels;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Interface;
+namespace Faust.Interface;
 
 public sealed partial class ConfigWindow : Window
 {
@@ -41,7 +40,6 @@ public sealed partial class ConfigWindow : Window
 
         if (ImGui.Checkbox("Enable", ref _activeSet.Enabled))
         {
-            Setup.SetupAll();
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -49,7 +47,6 @@ public sealed partial class ConfigWindow : Window
 
         if (ImGui.DragInt("Priority", ref _activeSet.Priority))
         {
-            Setup.SetupAll();
             Service.Config.Save();
         }
 

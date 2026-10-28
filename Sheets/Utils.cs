@@ -2,7 +2,7 @@
 using Lumina.Data.Structs.Excel;
 using System;
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 //just a copy of lumina stuff for reference
 //accessed already by []Replace

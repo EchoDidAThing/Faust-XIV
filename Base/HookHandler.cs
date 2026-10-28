@@ -1,12 +1,12 @@
 ﻿using ActionTimelineReplace.Base.Detours;
-using ActionTimelineReplacement.Base.Detours;
+using Faust.Base.Detours;
 using Dalamud.Plugin.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 
-namespace ActionTimelineReplacement.Base;
+namespace Faust.Base;
 
 internal class HookHandler : IDisposable
 {

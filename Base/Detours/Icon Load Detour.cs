@@ -1,8 +1,8 @@
-using ActionTimelineReplacement;
-using ActionTimelineReplacement.Base;
-using ActionTimelineReplacement.Base.Detours;
-using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Sheets;
+using Faust;
+using Faust.Base;
+using Faust.Base.Detours;
+using Faust.Base.Global;
+using Faust.Sheets;
 using Dalamud.Game;
 using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;

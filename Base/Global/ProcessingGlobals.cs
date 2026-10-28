@@ -8,7 +8,7 @@ using System.Text;
 using static Dalamud.Interface.Utility.Raii.ImRaii;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Base.Global;
+namespace Faust.Base.Global;
 
 public unsafe class ProcessingGlobals
 {

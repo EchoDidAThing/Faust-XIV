@@ -1,5 +1,5 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust.Base.Global;
+using Faust.Sheets;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
@@ -9,7 +9,7 @@ using System.Numerics;
 using System.Xml.Linq;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Interface;
+namespace Faust.Interface;
 
 public sealed partial class ConfigWindow : Window
 {

@@ -1,4 +1,4 @@
-﻿using ActionTimelineReplacement;
+﻿using Faust;
 using Dalamud.Hooking;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using FFXIVClientStructs.FFXIV.Component.GUI;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActionTimelineReplacement.Base.Detours;
+namespace Faust.Base.Detours;
 
 public unsafe class ScrollDetour : IDisposable
 {

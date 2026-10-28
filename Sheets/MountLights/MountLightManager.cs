@@ -6,7 +6,7 @@ using FFXIVClientStructs.FFXIV.Client.Graphics.Render;
 using Lumina.Excel.Sheets;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 public static class MountLightManager
 {

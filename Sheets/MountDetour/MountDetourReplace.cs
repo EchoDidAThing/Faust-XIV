@@ -1,10 +1,10 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Base.Structs;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust.Base.Global;
+using Faust.Base.Structs;
+using Faust.Sheets;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 public class RacialScalingSet (float malemidlander, float femalemidlander, float malehighlander, float femalehighlander, float maleelezen, float femaleelezen, float malelalafell, float femalelalafell, 
     float malemiqote, float femalemiqote, float maleroegadyn, float femaleroegadyn, float maleaura, float femaleaura, float malehrothgar, float femalehrothgar, float maleviera, float femaleviera)

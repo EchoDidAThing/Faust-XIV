@@ -1,8 +1,7 @@
-using ActionTimelineReplacement.Base;
-using ActionTimelineReplacement.Base.Detours;
-using ActionTimelineReplacement.Base.Setups;
-using ActionTimelineReplacement.Interface;
-using ActionTimelineReplacement.Sheets;
+using Faust.Base;
+using Faust.Base.Detours;
+using Faust.Interface;
+using Faust.Sheets;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.UI;
@@ -10,7 +9,7 @@ using System;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
 
-namespace ActionTimelineReplacement;
+namespace Faust;
 
 public sealed class Plugin : IDalamudPlugin
 {
@@ -36,14 +35,11 @@ public sealed class Plugin : IDalamudPlugin
 
         _disposables = [new WindowManager()];
 
-        Setup.SetupAll();
-
     }
 
     public void Dispose()
     {
         HookHandler?.Dispose();
-        Setup.SetupAll(true);
         Service.Config.Save();
         foreach (var disposable in _disposables)
         {

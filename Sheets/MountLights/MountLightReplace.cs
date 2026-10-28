@@ -1,12 +1,12 @@
-﻿using ActionTimelineReplacement.Base.Global;
-using ActionTimelineReplacement.Base.Structs;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust.Base.Global;
+using Faust.Base.Structs;
+using Faust.Sheets;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Render;
 using System.Collections;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 
 public class MountLightConfig(MountLightReplace replace, bool enabled)

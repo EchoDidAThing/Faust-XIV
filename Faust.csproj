@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Dalamud.NET.Sdk/14.0.1">
   <PropertyGroup>
-    <Authors></Authors>
+    <Name>Faust-XIV</Name>
+    <Author>Echo, Taco1932</Author>
+    <Punchline>Punching some lines.</Punchline>
     <Company></Company>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.0</Version>
     <Description>Boop.</Description>
     <Copyright></Copyright>
-	<PackageProjectUrl>https://github.com/papapachin/ActionTimelineReplacement</PackageProjectUrl>
+	<PackageProjectUrl>https://github.com/EchoDidAThing/Faust-XIV</PackageProjectUrl>
 	<NoWarn>CA1416</NoWarn>
+	<AssemblyName>Faust</AssemblyName>
+	<RootNamespace>Faust</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

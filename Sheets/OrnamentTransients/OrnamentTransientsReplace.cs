@@ -1,6 +1,6 @@
-﻿using ActionTimelineReplacement.Base.Structs;
+﻿using Faust.Base.Structs;
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 public class OrnamentTransientsConfig(OrnamentTransientsReplace replace, bool enabled)
 {

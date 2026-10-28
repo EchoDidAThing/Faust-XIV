@@ -1,22 +1,15 @@
-﻿using ActionTimelineReplacement;
-using ActionTimelineReplacement.Base.Setups;
-using ActionTimelineReplacement.Interface;
-using ActionTimelineReplacement.Sheets;
+﻿using Faust;
+using Faust.Interface;
+using Faust.Sheets;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
-using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using FFXIVClientStructs.FFXIV.Common.Lua;
-using Lumina.Excel.Sheets;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
-using static FFXIVClientStructs.FFXIV.Client.UI.Misc.AozNoteModule;
 
-namespace ActionTimelineReplacement.Base.Global;
+namespace Faust.Base.Global;
 
 public class UiGlobals
 {
@@ -194,7 +187,6 @@ public class UiGlobals
         if (ImGui.InputText("##" + refname + key, ref relay, 512, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -204,7 +196,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -219,7 +210,6 @@ public class UiGlobals
         if (ImGui.InputTextMultiline("##" + refname + key, ref relay, 2048, new Vector2(800, 100)))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -229,7 +219,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -246,7 +235,6 @@ public class UiGlobals
         if (ImGui.InputSByte("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -256,7 +244,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -278,7 +265,6 @@ public class UiGlobals
         if (ImGui.InputByte("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -288,7 +274,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -309,7 +294,6 @@ public class UiGlobals
         {
             value = relay;
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -319,7 +303,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -339,8 +322,6 @@ public class UiGlobals
         if (ImGui.InputUShort("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
-            //Service.Log.Error("old value is[{new}] new value is[{old}] ", defaultvalue,value);
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -349,7 +330,6 @@ public class UiGlobals
             if (DrawResetCellButton($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}", value==defaultvalue))
             {
                 value = DefaultValue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -371,7 +351,6 @@ public class UiGlobals
         if (ImGui.InputInt("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -381,7 +360,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -401,7 +379,6 @@ public class UiGlobals
         if (ImGui.InputUInt("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -411,7 +388,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -431,7 +407,6 @@ public class UiGlobals
         if (ImGui.InputFloat("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -441,7 +416,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -460,7 +434,6 @@ public class UiGlobals
         if (ImGui.Checkbox("##" + refname + key, ref relay))
         {
             value = relay;
-            if (changesenabled) { Setup.SetupByType(key, type); }
             Service.Config.Save();
         }
         ImGui.SameLine();
@@ -470,7 +443,6 @@ public class UiGlobals
             if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
             {
                 value = defaultvalue;
-                if (changesenabled) { Setup.SetupByType(key, type); }
                 Service.Config.Save();
             }
         }
@@ -484,15 +456,6 @@ public class UiGlobals
         Dictionary<uint, string> output = [];
         switch (type)
         {
-            case "Action":
-                output = ActionManager.Names;
-                return output;
-            case "ActionCastVFX":
-                output = ActionCastVFXManager.Names;
-                return output;
-            case "ActionTimeline":
-                output = ActionTimelineManager.Names;
-                return output;
             case "ActionTransients":
                 output = ActionTransientsManager.Names;
                 return output;
@@ -501,18 +464,6 @@ public class UiGlobals
                 return output;
             case "JobTransients":
                 output = JobTransientsManager.Names;
-                return output;
-            case "Glasses":
-                output = GlassesManager.Names;
-                return output;
-            case "GlassesStyle":
-                output = GlassesStyleManager.Names;
-                return output;
-            case "Mount":
-                output = MountManager.Names;
-                return output;
-            case "MountCustomize":
-                output = MountCustomizeManager.Names;
                 return output;
             case "MountDetour":
                 output = MountDetourManager.Names;
@@ -523,41 +474,11 @@ public class UiGlobals
             case "OrnamentTransients":
                 output = OrnamentTransientsManager.Names;
                 return output;
-            case "Ornament":
-                output = OrnamentManager.Names;
-                return output;
-            case "OrnamentCustomize":
-                output = OrnamentCustomizeManager.Names;
-                return output;
-            case "OrnamentCustomizeGroup":
-            //output = OrnamentCustomizeGroupManager.Names;
-            //return output;
-            case "Placename":
-            //output = PlaceNameManager.Names;
-            //return output;
-            case "PointMenuChoice":
-            //output = PointMenuManager.Names;
-            //return output;
-            case "Status":
-                output = StatusManager.Names;
-                return output;
-            case "StatusHitEffect":
-                output = StatusHitEffectManager.Names;
-                return output;
-            case "StatusLoopVFX":
-                output = StatusLoopVFXManager.Names;
-                return output;
             case "StatusTransients":
                 output = StatusTransientsManager.Names;
                 return output;
-            case "TiltParam":
-                output = TiltParamManager.Names;
-                return output;
             case "TraitTransients":
                 output = TraitTransientsManager.Names;
-                return output;
-            case "VFX":
-                output = VfxManager.Names;
                 return output;
             default:
                 Service.Log.Error("Datasheet type [{type}] is not defined in CreateSearchList", type);
@@ -569,15 +490,6 @@ public class UiGlobals
        uint output = 0;
         switch (type)
         {
-            case "Action":
-                output = (uint)activeset.ActionWriter.Count();
-                return output;
-            case "ActionCastVFX":
-                output = (uint)activeset.ActionCastVFXWriter.Count();
-                return output;
-            case "ActionTimeline":
-                output = (uint)activeset.ActionTimelineWriter.Count();
-                return output;
             case "ActionTransients":
                 output = (uint)activeset.ActionTransientsWriter.Count();
                 return output;
@@ -586,18 +498,6 @@ public class UiGlobals
                 return output;
             case "JobTransients":
                 output = (uint)activeset.JobTransientsWriter.Count();
-                return output;
-            case "Glasses":
-                output = (uint)activeset.GlassesWriter.Count();
-                return output;
-            case "GlassesStyle":
-                output = (uint)activeset.GlassesStyleWriter.Count();
-                return output;
-            case "Mount":
-                output = (uint)activeset.MountWriter.Count();
-                return output;
-            case "MountCustomize":
-                output = (uint)activeset.MountCustomizeWriter.Count();
                 return output;
             case "MountDetour":
                 output = (uint)activeset.MountDetourWriter.Count();
@@ -608,41 +508,11 @@ public class UiGlobals
             case "OrnamentTransients":
                 output = (uint)activeset.OrnamentTransientsWriter.Count();
                 return output;
-            case "Ornament":
-                output = (uint)activeset.OrnamentWriter.Count();
-                return output;
-            case "OrnamentCustomize":
-                output = (uint)activeset.OrnamentCustomizeWriter.Count();
-                return output;
-            case "OrnamentCustomizeGroup":
-            //output = OrnamentCustomizeGroupManager.Names;
-            //return output;
-            case "Placename":
-            //output = PlaceNameManager.Names;
-            //return output;
-            case "PointMenuChoice":
-            //output = PointMenuManager.Names;
-            //return output;
-            case "Status":
-                output = (uint)activeset.StatusWriter.Count();
-                return output;
-            case "StatusHitEffect":
-                output = (uint)activeset.StatusHitEffectWriter.Count();
-                return output;
-            case "StatusLoopVFX":
-                output = (uint)activeset.StatusLoopVFXWriter.Count();
-                return output;
             case "StatusTransients":
                 output = (uint)activeset.StatusTransientsWriter.Count();
                 return output;
-            case "TiltParam":
-                output = (uint)activeset.TiltParamWriter.Count();
-                return output;
             case "TraitTransients":
                 output = (uint)activeset.TraitTransientsWriter.Count();
-                return output;
-            case "VFX":
-                output = (uint)activeset.VfxWriter.Count();
                 return output;
             default:
                 Service.Log.Error("Datasheet type [{type}] is not defined in GetSheetCounts", type);
@@ -656,12 +526,6 @@ public class UiGlobals
         string output = "";
         switch (type)
         {
-            case "VFX_Path":
-                output = "vfx/common/" + VfxManager.GetReplacement(key).String1 + ".avfx";
-                return output;
-            case "ActionCastVFX-VFX_Path":
-                output = "vfx/common/" + VfxManager.GetReplacement(ActionCastVFXManager.GetReplacement(key).CastVfx).String1 + ".avfx";
-                return output;
             case "ActionCastVFX_Index":
                 output = "ActionCastVFX Entry#" + key;
                 copyenabled = false;
@@ -674,21 +538,9 @@ public class UiGlobals
                 if (key != 0) { output = "ui/icon/" + key.ToString().Substring(0, 3).PadRight(6, '0') + "/" + key.ToString().PadLeft(6, '0') + ".tex"; }
                 else { output = "ui/icon/000000/000000.tex"; }
                 return output;
-            case "StatusHitEffect-VFX_Path":
-                output = "vfx/common/" + VfxManager.GetReplacement(StatusHitEffectManager.GetReplacement(key).VFX).String1 + ".avfx";
-                return output;
-            case "StatusLoopVFX-VFX_Path":
-                output = "vfx/common/" + VfxManager.GetReplacement(StatusLoopVFXManager.GetReplacement(key).FriendlyVFX).String1 + ".avfx";
-                return output;
             case "TiltParam_Index":
                 output = "TiltParam Entry#" + key;
                 copyenabled = false;
-                return output;
-            case "ActionTimeline_Path":
-                output = "chara/action/" + ActionTimelineManager.GetReplacement(key).Animation + ".tmb";
-                return output;
-            case "WeaponTimeline_Path":
-                output = "chara/action/" + ActionTimelineManager.GetReplacement(key).Animation + ".tmb";
                 return output;
             default:
                 Service.Log.Error("Datasheet type [{type}] is not defined in GetIndirectString", type);

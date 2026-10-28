@@ -1,6 +1,6 @@
-﻿using ActionTimelineReplacement.Base.Structs;
+﻿using Faust.Base.Structs;
 
-namespace ActionTimelineReplacement.Sheets;
+namespace Faust.Sheets;
 
 public class TraitTransientsConfig(TraitTransientsReplace replace, bool enabled)
 {

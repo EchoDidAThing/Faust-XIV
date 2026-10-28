@@ -1,11 +1,11 @@
-﻿using ActionTimelineReplacement.Sheets;
+﻿using Faust.Sheets;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActionTimelineReplacement.Base.Detours;
+namespace Faust.Base.Detours;
 
 internal class JobChangeDetour
 {

@@ -1,11 +1,11 @@
-using ActionTimelineReplacement.Sheets;
+using Faust.Sheets;
 using Dalamud.Game;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement;
+namespace Faust;
 
 internal class Service
 {

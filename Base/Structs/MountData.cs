@@ -5,7 +5,7 @@ using System.Threading;
 using FFXIVClientStructs;
 using Lumina.Excel.Sheets;
 
-namespace ActionTimelineReplacement.Base.Structs;
+namespace Faust.Base.Structs;
 
 [StructLayout(LayoutKind.Explicit)]
 public struct MountData

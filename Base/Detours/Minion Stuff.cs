@@ -5,7 +5,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
 
-namespace ActionTimelineReplacement.Base.Detours;
+namespace Faust.Base.Detours;
 
 public unsafe class Minionstuffs : IDisposable
 {

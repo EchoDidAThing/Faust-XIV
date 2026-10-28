@@ -1,7 +1,7 @@
 ﻿using Lumina.Data.Parsing;
 using System.Runtime.InteropServices;
 
-namespace ActionTimelineReplacement.Base.Structs;
+namespace Faust.Base.Structs;
 
 [StructLayout(LayoutKind.Explicit)]
 public struct ItemData

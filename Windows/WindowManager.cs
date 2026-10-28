@@ -2,7 +2,7 @@
 using Dalamud.Interface.Windowing;
 #pragma warning disable CA1416 // Validate platform compatibility
 
-namespace ActionTimelineReplacement.Interface;
+namespace Faust.Interface;
 
 public sealed class WindowManager : IDisposable
 {
@@ -15,7 +15,7 @@ public sealed class WindowManager : IDisposable
         Service.PluginInterface.UiBuilder.Draw += DrawUi;
         Service.PluginInterface.UiBuilder.OpenConfigUi += _configWindow.Toggle;
         Service.PluginInterface.UiBuilder.OpenMainUi += _configWindow.Toggle;
-        Service.CommandManager.AddHandler("/atr", new((_, _) => _configWindow.Toggle())
+        Service.CommandManager.AddHandler("/faust", new((_, _) => _configWindow.Toggle())
         {
             HelpMessage = "Toggle config window",
             ShowInHelp = true,
@@ -27,7 +27,7 @@ public sealed class WindowManager : IDisposable
         Service.PluginInterface.UiBuilder.Draw -= DrawUi;
         Service.PluginInterface.UiBuilder.OpenConfigUi -= _configWindow.Toggle;
         Service.PluginInterface.UiBuilder.OpenMainUi -= _configWindow.Toggle;
-        Service.CommandManager.RemoveHandler("/atr");
+        Service.CommandManager.RemoveHandler("/faust");
         _windowSystem.RemoveAllWindows();
     }
 
