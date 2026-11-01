@@ -9,17 +9,15 @@ public sealed partial class ConfigWindow : Window
 {
     private static void DrawHeader()
     {
-        if (ImGui.Checkbox("Global Enable", ref Service.Config.EnableReplacement))
+        if (ImGui.Checkbox("Enable all", ref Service.Config.EnableReplacement))
         {
             Service.Config.Save();
         }
-        /*
         ImGui.SameLine();
-        if (ImGui.Button(Service.Config.AdvancedMode ? "To Simple Mode" : "To Advanced Mode"))
+        if (ImGui.Button(Service.Config.devLogging? "Logging On" : "Logging Off"))
         {
-            Service.Config.AdvancedMode = !Service.Config.AdvancedMode;
+            Service.Config.devLogging = !Service.Config.devLogging;
             Service.Config.Save();
         }
-        */
     }
 }

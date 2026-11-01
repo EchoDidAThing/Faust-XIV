@@ -139,6 +139,71 @@ public class Configuration : IPluginConfiguration
                     }
             }
         }
+
+        public void SetAll(bool value)
+        {
+        this.GLA = value;
+        this.MRD = value;
+
+        this.CNJ = value;
+
+        this.PGL = value;
+        this.LNC = value;
+        this.ROG = value;
+
+        this.ARC = value;
+
+        this.THM = value;
+        this.ACN = value;
+
+
+        this.PLD = value;
+        this.WAR = value;
+        this.DRK = value;
+        this.GNB = value;
+        //this.BAS = value;
+
+
+        this.WHM = value;
+        this.SCH = value;
+        this.AST = value;
+        this.SGE = value;
+
+
+        this.MNK = value;
+        this.DRG = value;
+        this.NIN = value;
+        this.SAM = value;
+        this.RPR = value;
+        this.VPR = value;
+        this.BST = value;
+
+        this.BRD = value;
+        this.MCH = value;
+        this.DNC = value;
+        //this.ZPH = value;
+
+        this.BLM = value;
+        this.SMN = value;
+        this.RDM = value;
+        this.PCT = value;
+        this.BLU = value;
+
+
+        this.CRP = value;
+        this.BSM = value;
+        this.ARM = value;
+        this.GSM = value;
+        this.LTW = value;
+        this.WVR = value;
+        this.ALC = value;
+        this.CUL = value;
+
+        this.MIN = value;
+        this.BTN = value;
+        this.FSH = value;
+        }
+        
     }
     //TOSETUP: add new dictionary here
     public class ReplacementSet(string name, bool enabled, int priority,

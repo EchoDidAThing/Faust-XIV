@@ -86,6 +86,39 @@ public class UiGlobals
         return small ? ImGui.SmallButton(label) : ImGui.Button(label);
     }
 
+    public static void DrawCombo(string mainkey, ref string activesheet, Configuration.ReplacementSet activeset)
+    {
+        ImRaii.ColorDisposable styletype = new ImRaii.ColorDisposable();
+        styletype.Pop();
+        uint countvalue = GetSheetCounts(mainkey, activeset);
+        string buttontext = mainkey;
+        if (countvalue >=1)
+        {
+            buttontext += " [" + countvalue + "]";
+        }
+        else
+        {
+            styletype.Pop();
+            styletype.Push(ImGuiCol.Text, FADED_WHITE);
+            styletype.Push(ImGuiCol.Button, NO_ALPHA);
+        }
+        if (mainkey == activesheet)
+        {
+            styletype.Pop();
+            styletype.Push(ImGuiCol.Button, DARK_GREEN);
+            styletype.Push(ImGuiCol.Text, FULL_WHITE);
+        }
+        else
+        {
+            styletype.Push(ImGuiCol.Button, BASE_ALPHA);
+        }
+        styletype.Push(ImGuiCol.ButtonHovered, FADED_DARK_GREEN);
+        using var style = styletype;
+        if (ImGui.Button(buttontext))
+        {
+            activesheet = mainkey;
+        }
+    }
 
     public static void DrawSheetButton(string mainkey, ref string activesheet, Configuration.ReplacementSet activeset)
     {

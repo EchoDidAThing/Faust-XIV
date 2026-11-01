@@ -18,14 +18,14 @@ public sealed partial class ConfigWindow : Window
     private Configuration.ReplacementSet? _activeSet;
 
     public ConfigWindow()
-        : base("Faust" + typeof(ConfigWindow).Assembly.GetName().Version)
+        : base("Faust v" + typeof(ConfigWindow).Assembly.GetName().Version)
     {
         SizeCondition = ImGuiCond.FirstUseEver;
         Size = new Vector2(1000, 1000);
         SizeConstraints = new WindowSizeConstraints()
         {
-            MinimumSize = new Vector2(1000, 1000),
-            MaximumSize = new Vector2(1000, 1000),
+            MinimumSize = new Vector2(1000, 700),
+            MaximumSize = new Vector2(1000, 2000),
         };
     }
 }

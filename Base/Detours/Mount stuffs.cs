@@ -41,6 +41,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using Serilog.Events;
 using static FFXIVClientStructs.FFXIV.Client.UI.AddonRelicNoteBook;
 using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegates;
 using static FFXIVClientStructs.FFXIV.Client.UI.ListPanel.Delegates;
@@ -122,7 +123,7 @@ public unsafe class Mountstuffs : IDisposable
             (ownerObject->Mount.MountId != 0))
         {
             var curvalue = MountDetourManager.GetReplacement(ownerObject->Mount.MountId);
-            Service.Log.Warning("TILTmountID is" + ownerObject->Mount.MountId);
+            Logging.pluginDevLog(LogEventLevel.Warning,"TILTmountID is" + ownerObject->Mount.MountId);
             thisptr->MountGroundTiltAngle = curvalue.MountGroundTilt.TiltAngle;
             thisptr->MountGroundTiltSpeed = curvalue.MountGroundTilt.TiltSpeed;
             thisptr->MountGroundTiltOrigin = (EffectContainer.TiltOrigin)curvalue.MountGroundTilt.TiltOrigin;
@@ -152,7 +153,7 @@ public unsafe class Mountstuffs : IDisposable
     }
     private SoundData* PlayBGMSoundDetour(SoundManager* thisptr, CStringPointer path)
     {
-        Service.Log.Warning("Mount Id is " + MountID);
+        Logging.pluginDevLog(LogEventLevel.Warning,"Mount Id is " + MountID);
         var origvalue = MountDetourManager.GetOriginal(MountID);
         curvalue = MountDetourManager.GetReplacement(MountID);
         var outpath = path;
@@ -163,7 +164,7 @@ public unsafe class Mountstuffs : IDisposable
         {
             outpath = ProcessingGlobals.PathCString(curvalue.BGMPath);
             lastbgmpath = curvalue.BGMPath;
-            Service.Log.Info("replaced mountBGMpath with" + curvalue.BGMPath);
+            Logging.pluginDevLog(LogEventLevel.Warning,"replaced mountBGMpath with" + curvalue.BGMPath);
         }
         var retvalue  = _PlayBGMSoundHook!.Original(thisptr, outpath);
         return retvalue;
