@@ -1,0 +1,35 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - 'public'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Prepare Environment
+        uses: ./.github/actions/prepare-environment
+        with:
+          project: Faust-XIV
+      - name: Build and Upload Artifact
+        uses: ./.github/actions/build-with-artifact
+        with:
+          project: Penumbra
+          version: ${{ github.ref_name }}
+      - name: Create Release
+        uses: ./.github/actions/create-release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          project: Faust-XIV
+          version: ${{ github.ref_name }}
+      - name: Update repo.json
+        uses: ./.github/actions/update-repo
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          project: Faust-XIV
+          version: ${{ github.ref_name }}
