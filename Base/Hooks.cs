@@ -1,16 +1,31 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using ActionTimelineReplacement.Base.Structs;
+using Faust.Base.Structs;
 
-namespace ActionTimelineReplacement.Base;
+namespace Faust.Base;
 
 public static unsafe class Hooks
 {
     public const string vfxhook = "E8 ?? ?? ?? ?? 48 8B D0 48 8B CB E8 ?? ?? ?? ?? 45 84 F6"; //updated for 7.5
     public const string statusloopvfxhook = "E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 74 ?? 66 39 38";//updated 7.4
+    public const string actiontimelinehook = "E8 ?? ?? ?? ?? 48 85 C0 0F 84 ?? ?? ?? ?? 80 78 ?? ?? 0F 85 ?? ?? ?? ?? 32 C0"; //updated for 7.5HF1. this was a pain to find
+    public const string bgmhook = "48 83 EC ?? 48 8B 05 ?? ?? ?? ?? BA ?? ?? ?? ?? 44 0F B7 C1 48 8B 88 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 85 C0 74";  //retrieved from 7.57 Component::Exd::ExdModule_GetBGMRow_2
+
+    public const string HandleItemHover = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC ?? 8B FA 41 8B E9";//updated 7.55hf2, Client::UI::Agent::AgentItemDetail.HandleItemHover
+
+
+    //yoinked from Simpletweaks
+    public const string itemhoveredhook = "E8 ?? ?? ?? ?? 84 C0 0F 84 ?? ?? ?? ?? 48 89 9C 24 ?? ?? ?? ?? 4C 89 A4 24";
+
+    //Stuff I pulled myself
+    //public const string OtherTiltParamSetup = "E8 ?? ?? ?? ?? 48 8B CB E8 ?? ?? ?? ?? 48 83 BB ?? ?? ?? ?? ?? 74";
+    public const string MountUpdate = "40 55 57 41 57 48 81 EC ?? ?? ?? ?? 48 8B F9"; //Client::Game::Character::MountContainer.Update
+    public const string MountDismount = "E8 ?? ?? ?? ?? 48 8B 4F ?? F6 81"; //Client::Game::Character::MountContainer.Dismount
+
 
     #region delegates
     private delegate ActionData* GetActionDataDelegate(uint RowId);
+    private delegate ActionCastVFXData* GetActionCastVFXDataDelegate(uint RowId);
     private delegate StatusData* GetStatusDataDelegate(uint RowId);
     private delegate StatusLoopVFXData* GetStatusLoopVFXDataDelegate(uint RowId);
     private delegate StatusHitEffectData* GetStatusHitEffectDataDelegate(uint RowId);
@@ -22,6 +37,7 @@ public static unsafe class Hooks
     private delegate GlassesStyleData* GetGlassesStyleDataDelegate(uint RowId);
     //private delegate PlaceNameData* GetPlaceNameDataDelegate(uint RowId);
     private delegate ActionTimelineData* GetActionTimelineDataDelegate(uint RowId);
+    private delegate IntPtr GetActionTimelineDataDelegatepublic(uint RowId);
     private delegate WeaponTimelineData* GetWeaponTimelineDataDelegate(uint RowId);
     private delegate OrnamentData* GetOrnamentDataDelegate(uint RowId);
     private delegate OrnamentCustomizeData* GetOrnamentCustomizeDataDelegate(uint RowId);
@@ -32,7 +48,6 @@ public static unsafe class Hooks
     //private delegate MotionTimelineData* GetMotionTimelineDataDelegate(uint RowId);
     //private delegate PointMenuChoiceData* GetPointMenuChoiceDataDelegate(float RowId);
     //private delegate ActionCastTimelineData* GetActionCastTimelineDataDelegate(uint RowId);
-    //private delegate ActionCastVFXData* GetActionCastVFXDataDelegate(uint RowId);
     //private delegate ActionTransientData* GetActionTransientDataDelegate(uint RowId);
     //private delegate StatusHitEffectData* GetStatusHitEffectDataDelegate(uint RowId);
     //private delegate MountTransientData* GetMountTransientDataDelegate(uint RowId);
@@ -41,6 +56,9 @@ public static unsafe class Hooks
     #region hooks
 
     private static GetActionDataDelegate? _getActionDataHook;
+    private static GetActionCastVFXDataDelegate? _getActionCastVFXDataHook;
+    private static GetActionTimelineDataDelegate? _getActionTimelineDataHook;
+    private static GetActionTimelineDataDelegatepublic? _getActionTimelineDataHookpublic;
     private static GetStatusDataDelegate? _getStatusDataHook;
     private static GetStatusLoopVFXDataDelegate? _getStatusLoopVFXDataHook;
     private static GetStatusLoopVFXDataDelegatepublic? _getStatusLoopVFXDataHookpublic;
@@ -51,7 +69,6 @@ public static unsafe class Hooks
     private static GetGlassesDataDelegate? _getGlassesDataHook;
     private static GetGlassesStyleDataDelegate? _getGlassesStyleDataHook;
     //private static GetPlaceNameDataDelegate? _getPlaceNameDataHook;
-    private static GetActionTimelineDataDelegate? _getActionTimelineDataHook;
     private static GetWeaponTimelineDataDelegate? _getWeaponTimelineDataHook;
     private static GetOrnamentDataDelegate? _getOrnamentDataHook;
     private static GetOrnamentCustomizeDataDelegate? _getOrnamentCustomizeDataHook;
@@ -76,6 +93,15 @@ public static unsafe class Hooks
         //updated for 7.4, Component::Exd::ExdModule.GetActionRow located inside Client::Game::ActionManager.GetActionStatus
 
         return _getActionDataHook(RowId);
+    }
+
+    public static ActionCastVFXData* GetActionCastVFXData(uint RowId)
+    {
+        _getActionCastVFXDataHook ??= Marshal.GetDelegateForFunctionPointer<GetActionCastVFXDataDelegate>(Service.Scanner.ScanText(
+            "E8 ?? ?? ?? ?? 48 8B F8 48 85 C0 74 ?? 48 8B 4B ?? E8"));
+        //updated for 7.5, nested in a function below Client::Game::Character::MountContainer.vf4 and Client::Game::Character::TimelineContainer.vf4
+
+        return _getActionCastVFXDataHook(RowId);
     }
 
     public static StatusData* GetStatusData(uint RowId)
@@ -130,7 +156,7 @@ public static unsafe class Hooks
     {
         _getTiltParamDataHook ??= Marshal.GetDelegateForFunctionPointer<GetTiltParamDataDelegate>(Service.Scanner.ScanText(
             "E8 ?? ?? ?? ?? 0F B7 4F ?? 48 8B F0 E8 ?? ?? ?? ?? 33 D2"));
-        //updated for 7.4, Component::Exd::ExdModule.GetMountTiltParamRow located inside a function within Client::Game::Character::MountContainer.CreateAndSetupMountContainer
+        //updated for 7.4, Component::Exd::ExdModule.GetMountTiltParamRow located inside Client::Game::Character::EffectContainer.LoadPlayerTiltData
         return _getTiltParamDataHook(RowId);
     }
 
@@ -160,10 +186,18 @@ public static unsafe class Hooks
     public static ActionTimelineData* GetActionTimelineData(uint RowId)
     {
         _getActionTimelineDataHook ??= Marshal.GetDelegateForFunctionPointer<GetActionTimelineDataDelegate>(Service.Scanner.ScanText(
-            "E8 ?? ?? ?? ?? F6 40 3E 10")); 
+            actiontimelinehook)); 
 
 
         return _getActionTimelineDataHook(RowId);
+    }
+    public static IntPtr GetActionTimelineDatapublic(uint RowId)
+    {
+        _getActionTimelineDataHookpublic ??= Marshal.GetDelegateForFunctionPointer<GetActionTimelineDataDelegatepublic>(Service.Scanner.ScanText(
+            actiontimelinehook));
+
+
+        return _getActionTimelineDataHookpublic(RowId);
     }
     public static WeaponTimelineData* GetWeaponTimelineData(uint RowId)
     {
@@ -185,8 +219,8 @@ public static unsafe class Hooks
     public static OrnamentCustomizeData* GetOrnamentCustomizeData(uint RowId)
     {
         _getOrnamentCustomizeDataHook ??= Marshal.GetDelegateForFunctionPointer<GetOrnamentCustomizeDataDelegate>(Service.Scanner.ScanText(
-            "E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 0F 84 ?? ?? ?? ?? 0F B7 08 0F BF 40"));
-        //Updated for 7.5 Component::Exd::ExdModule.GetOrnamentCustomizeRow located inside A nested function under Client::Game::Character::OrnamentContainer.Update
+            "E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 0F 84 ?? ?? ?? ?? 0F B7 08"));
+        //Updated for 7.55HF2 Component::Exd::ExdModule.GetOrnamentCustomizeRow located inside A nested function under Client::Game::Character::OrnamentContainer.Update
         return _getOrnamentCustomizeDataHook(RowId);
     }
     
@@ -210,6 +244,7 @@ public static unsafe class Hooks
 
         return _getVFXDataHookpublic(RowId);
     }
+
 
     /*
     public static PointMenuChoiceData* GetPointMenuChoiceData(float RowId)
