@@ -6,7 +6,7 @@ namespace Faust.Interface;
 
 public sealed class WindowManager : IDisposable
 {
-    private readonly WindowSystem _windowSystem = new("Custom ATR");
+    private readonly WindowSystem _windowSystem = new("Faust-XIV");
     private readonly ConfigWindow _configWindow = new();
 
     public WindowManager()

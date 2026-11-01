@@ -8,6 +8,9 @@ using FFXIVClientStructs.FFXIV.Client.UI;
 using System;
 using System.Collections.Immutable;
 using System.Collections.Specialized;
+using Faust.Base.Global;
+using FFXIVClientStructs.FFXIV.Client.Game.Character;
+using Serilog.Events;
 
 namespace Faust;
 
@@ -15,8 +18,6 @@ public sealed class Plugin : IDalamudPlugin
 {
 
     private readonly HookHandler HookHandler;
-
-
     private readonly ImmutableArray<IDisposable> _disposables;
     public Plugin(IDalamudPluginInterface pluginInterface)
     {
@@ -27,9 +28,8 @@ public sealed class Plugin : IDalamudPlugin
 
         //用于读取Config
         //Service.Log.Error("cur value is " + Service.PluginInterface.ConfigFile.FullName);
-        Service.Config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
-        //Service.Config.Load();
-        //Service.Log.Error("cur value is " + Service.Config.ReplacementSets[0].ActionTransientsWriter[30].Replacement);
+        //Service.Config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        Service.Config.Load();
         Service.Config.Save();
         
 

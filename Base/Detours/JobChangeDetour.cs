@@ -1,9 +1,11 @@
 ﻿using Faust.Sheets;
+using Faust.Base.Global;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Serilog.Events;
 
 namespace Faust.Base.Detours;
 
@@ -22,14 +24,14 @@ internal class JobChangeDetour
             foreach (var id in ids)
             {
                 if (tempcurrenticons.ContainsKey(id)) {
-                    Service.Log.Error("key" + id + " already exists");
+                    Logging.pluginDevLog(LogEventLevel.Error, "key" + id + " already exists");
                     continue;
                 }
                 var replacement = ActionTransientsManager.GetReplacement(id).Icon;
                 var original = ActionTransientsManager.GetOriginal(id).Icon;
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 if (original == replacement) { continue; }
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 tempcurrenticons.Add(id, replacement);
             }
         }
@@ -42,14 +44,14 @@ internal class JobChangeDetour
             {
                 if (tempcurrenticons.ContainsKey(id))
                 {
-                    Service.Log.Error("key" + id + " already exists");
+                    Logging.pluginDevLog(LogEventLevel.Error,"key" + id + " already exists");
                     continue;
                 }
                 var replacement = MountTransientsManager.GetReplacement(id).Icon;
                 var original = MountTransientsManager.GetOriginal(id).Icon;
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 if (original == replacement) { continue; }
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 tempcurrenticons.Add(original, replacement);
             }
         }
@@ -60,19 +62,19 @@ internal class JobChangeDetour
             {
                 if (tempcurrenticons.ContainsKey(id))
                 {
-                    Service.Log.Error("key" + id + " already exists");
+                    Logging.pluginDevLog(LogEventLevel.Error,"key" + id + " already exists");
                     continue;
                 }
                 var replacement = CompanionTransientsManager.GetReplacement(id).Icon;
                 var original = CompanionTransientsManager.GetOriginal(id).Icon;
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 if (original == replacement) { continue; }
-                Service.Log.Error("adding" + original + " with value of " + replacement);
+                Logging.pluginDevLog(LogEventLevel.Information,"adding" + original + " with value of " + replacement);
                 tempcurrenticons.Add(original, replacement);
             }
         }
 
-        Service.Log.Error("after update count of changed ids is " + tempcurrenticons.Count);
+        Logging.pluginDevLog(LogEventLevel.Information,"after update count of changed ids is " + tempcurrenticons.Count);
     }
 }
 

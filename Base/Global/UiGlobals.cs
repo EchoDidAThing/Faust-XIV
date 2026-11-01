@@ -456,28 +456,28 @@ public class UiGlobals
         Dictionary<uint, string> output = [];
         switch (type)
         {
-            case "ActionTransients":
+            case "Action UI":
                 output = ActionTransientsManager.Names;
                 return output;
-            case "CompanionTransients":
+            case "Companion UI":
                 output = CompanionTransientsManager.Names;
                 return output;
-            case "JobTransients":
+            case "Job UI":
                 output = JobTransientsManager.Names;
                 return output;
-            case "MountDetour":
+            case "Mount Properties":
                 output = MountDetourManager.Names;
                 return output;
-            case "MountTransients":
+            case "Mount UI":
                 output = MountTransientsManager.Names;
                 return output;
-            case "OrnamentTransients":
+            case "Ornament UI":
                 output = OrnamentTransientsManager.Names;
                 return output;
-            case "StatusTransients":
+            case "Status UI":
                 output = StatusTransientsManager.Names;
                 return output;
-            case "TraitTransients":
+            case "Trait UI":
                 output = TraitTransientsManager.Names;
                 return output;
             default:
@@ -490,28 +490,28 @@ public class UiGlobals
        uint output = 0;
         switch (type)
         {
-            case "ActionTransients":
+            case "Action UI":
                 output = (uint)activeset.ActionTransientsWriter.Count();
                 return output;
-            case "CompanionTransients":
+            case "Companion UI":
                 output = (uint)activeset.CompanionTransientsWriter.Count();
                 return output;
-            case "JobTransients":
+            case "Job UI":
                 output = (uint)activeset.JobTransientsWriter.Count();
                 return output;
-            case "MountDetour":
+            case "Mount Properties":
                 output = (uint)activeset.MountDetourWriter.Count();
                 return output;
-            case "MountTransients":
+            case "Mount UI":
                 output = (uint)activeset.MountTransientsWriter.Count();
                 return output;
-            case "OrnamentTransients":
+            case "Ornament UI":
                 output = (uint)activeset.OrnamentTransientsWriter.Count();
                 return output;
-            case "StatusTransients":
+            case "Status UI":
                 output = (uint)activeset.StatusTransientsWriter.Count();
                 return output;
-            case "TraitTransients":
+            case "Trait UI":
                 output = (uint)activeset.TraitTransientsWriter.Count();
                 return output;
             default:

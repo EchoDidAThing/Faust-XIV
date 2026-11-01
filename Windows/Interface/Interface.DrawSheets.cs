@@ -30,17 +30,17 @@ public sealed partial class ConfigWindow : Window
 
     private void DrawSheets()
     {
-        if (!_allHeaders.ContainsKey("ActionTransients"))
+        if (!_allHeaders.ContainsKey("Action UI"))
         {
             //TOSETUP: Add new headers here
-            _allHeaders.Add("ActionTransients", []);
-            _allHeaders.Add("CompanionTransients", []);
-            _allHeaders.Add("JobTransients", []);
-            _allHeaders.Add("MountDetour", []);
-            _allHeaders.Add("MountTransients", []);
-            _allHeaders.Add("OrnamentTransients", []);
-            _allHeaders.Add("StatusTransients", []);
-            _allHeaders.Add("TraitTransients", []);
+            _allHeaders.Add("Action UI", []);
+            _allHeaders.Add("Companion UI", []);
+            _allHeaders.Add("Job UI", []);
+            _allHeaders.Add("Mount UI", []);
+            _allHeaders.Add("Ornament UI", []);
+            _allHeaders.Add("Status UI", []);
+            _allHeaders.Add("Trait UI", []);
+            _allHeaders.Add("Mount Properties", []);
             //_AllHeaders.Add("PointMenuChoice", []);
 
         }
@@ -53,28 +53,28 @@ public sealed partial class ConfigWindow : Window
         switch (activesheet)
         {
             //TOSETUP: Add new case here to call the subsheet
-            case "ActionTransients":
+            case "Action UI":
                 ActionTransientsMain.Draw(activesheet, ref _activeSet, ref _searchActionTransients);
                 break;
-            case "CompanionTransients":
+            case "Companion UI":
                 CompanionTransientsMain.Draw(activesheet, ref _activeSet, ref _searchCompanionTransients);
                 break;
-            case "JobTransients":
+            case "Job UI":
                JobTransientsMain.Draw(activesheet, ref _activeSet, ref _searchJobTransients);
                 break;
-           case "MountDetour":
+           case "Mount Properties":
                 MountDetourMain.Draw(activesheet, ref _activeSet, ref _searchMountDetour);
                 break;
-            case "MountTransients":
+            case "Mount UI":
                 MountTransientsMain.Draw(activesheet, ref _activeSet, ref _searchMountTransients);
                 break;
-            case "OrnamentTransients":
+            case "Ornament UI":
                 OrnamentTransientsMain.Draw(activesheet, ref _activeSet, ref _searchOrnamentTransients);
                 break;
-            case "StatusTransients":
+            case "Status UI":
                 StatusTransientsMain.Draw(activesheet, ref _activeSet, ref _searchStatusTransients);
                 break;
-            case "TraitTransients":
+            case "Trait UI":
                 TraitTransientsMain.Draw(activesheet, ref _activeSet, ref _searchTraitTransients);
                 break;
             case "NONE":

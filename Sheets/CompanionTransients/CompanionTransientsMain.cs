@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class CompanionTransientsMain
 {
-    const string type = "CompanionTransients";
+    const string type = "Companion UI";
     const string typename = "Companion Transient";
     const string typenameplural = "Companion Transients";
     const string searchPopup = "Search " + typenameplural;

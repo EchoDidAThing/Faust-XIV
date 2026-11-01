@@ -23,27 +23,12 @@ using Lumina.Text.Payloads;
 using Lumina.Text.ReadOnly;
 using Serilog.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml;
-using static FFXIVClientStructs.FFXIV.Client.UI.AddonRelicNoteBook;
-using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegates;
-using static FFXIVClientStructs.FFXIV.Client.UI.ListPanel.Delegates;
-using static Lumina.Data.Parsing.Uld.NodeData;
-using static System.Net.Mime.MediaTypeNames;
+using Serilog.Events;
 
 namespace ActionTimelineReplace.Base.Detours;
 
 public unsafe class IconLoadDetour : IDisposable
 {
-
     private readonly Hook<AtkComponentDragDrop.Delegates.LoadIcon>? _ItemDragDropLoadHook;
     private readonly Hook<RaptureHotbarModule.HotbarSlot.Delegates.GetIconIdForSlot>? _RaptureGetIconIDForSlotLoadHook;
     private readonly Hook<RaptureHotbarModule.HotbarSlot.Delegates.LoadIconId>? _RaptureLoadIconID;
@@ -91,11 +76,11 @@ public unsafe class IconLoadDetour : IDisposable
         //this works for most things, but items are a problem.need to work around that
         uint feedid = iconid;
         var tocheck = thisPtr;
-        Service.Log.Error("trying to load icon" + iconid );
+        Logging.pluginDevLog(LogEventLevel.Information, "trying to load icon" + iconid );
         //if (JobChangeDetour.CurrentJobIcons.ContainsKey(iconid)) { feedid = JobChangeDetour.CurrentJobIcons[iconid]; }
         if (feedid != iconid)
         {
-            Service.Log.Error("original value was " + iconid + "decided value was " + feedid);
+            Logging.pluginDevLog(LogEventLevel.Error,"original value was " + iconid + "decided value was " + feedid);
         }
         //maybe inventory stuff here
         //Service.GameInventory.GetInventoryItems(Dalamud.Game.Inventory.GameInventoryType.Inventory1)

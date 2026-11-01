@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class MountDetourMain
 {
-    const string type = "MountDetour";
+    const string type = "Mount Properties";
     const string typename = "MountDetour";
     const string typenameplural = "MountDetours";
     private static string lastsearch = "";

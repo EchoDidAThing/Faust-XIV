@@ -17,10 +17,10 @@ namespace Faust.Sheets;
 #region Main
 public class ActionTransientsMain
 {
-    const string type = "ActionTransients";
+    const string type = "Action UI";
     const string typename = "Action Transient";
     const string typenameplural = "Action Transients";
-    const string searchPopup = "Search " + typenameplural;
+    const string searchPopup = "Search " + typename;
     private static string lastsearch = "";
     private static string localsearch = "";
     private static Dictionary<uint, string> SearchList = UiGlobals.CreateSearchList(type);

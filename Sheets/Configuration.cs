@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Faust;
 using Dalamud.Configuration;
 using FFXIVClientStructs;
 using FFXIVClientStructs.FFXIV.Client.Graphics;
@@ -14,9 +15,9 @@ public class Configuration : IPluginConfiguration
 {
     public class JobArray (bool gla = false, bool mrd = false, bool cnj = false, bool pgl = false, bool lnc = false,
         bool rog = false, bool arc = false, bool thm = false, bool acn = false, bool pld = false, bool war = false,
-        bool drk = false, bool gnb = false, bool whm = false, bool sch = false, bool ast = false, bool sge = false,
+        bool drk = false, bool gnb = false, /*bool bas = false,*/ bool whm = false, bool sch = false, bool ast = false, bool sge = false,
         bool mnk = false, bool drg = false, bool nin = false, bool sam = false, bool rpr = false, bool vpr = false,
-        bool bst = false, bool brd = false, bool mch = false, bool dnc = false, bool blm = false, bool smn = false,
+        bool bst = false, bool brd = false, bool mch = false, bool dnc = false, /*bool zph = false,*/  bool blm = false, bool smn = false,
         bool rdm = false, bool pct = false, bool blu = false, bool crp = false, bool bsm = false, bool arm = false,
         bool gsm = false, bool ltw = false, bool wvr = false, bool alc = false, bool cul = false, bool min = false,
         bool btn = false, bool fsh = false)
@@ -40,6 +41,8 @@ public class Configuration : IPluginConfiguration
         public bool WAR = war;
         public bool DRK = drk;
         public bool GNB = gnb;
+        //public bool BAS = bas;
+
 
         public bool WHM = whm;
         public bool SCH = sch;
@@ -58,6 +61,7 @@ public class Configuration : IPluginConfiguration
         public bool BRD = brd;
         public bool MCH = mch;
         public bool DNC = dnc;
+        //public bool ZPH = zph;
 
         public bool BLM = blm;
         public bool SMN = smn;
@@ -96,6 +100,7 @@ public class Configuration : IPluginConfiguration
                 case "WAR": return this.WAR;
                 case "DRK": return this.DRK;
                 case "GNB": return this.GNB;
+                //case "BAS": return this.BAS;
                 case "WHM": return this.WHM;
                 case "SCH": return this.SCH;
                 case "AST": return this.AST;
@@ -110,6 +115,7 @@ public class Configuration : IPluginConfiguration
                 case "BRD": return this.BRD;
                 case "MCH": return this.MCH;
                 case "DNC": return this.DNC;
+                //case "ZPH": return this.ZPH;
                 case "BLM": return this.BLM;
                 case "SMN": return this.SMN;
                 case "RDM": return this.RDM;
@@ -216,16 +222,14 @@ public class Configuration : IPluginConfiguration
 
     public bool EnableReplacement = true;
 
-    //public bool AdvancedMode = false;
+    public bool devLogging = false;
 
     public List<ReplacementSet> ReplacementSets { get; set; } = [];
 
-    /*internal void Load()
+    internal void Load()
     {
-        Service.Config =
-                    JsonConvert.DeserializeObject<Configuration>(
-                        File.ReadAllText(Service.PluginInterface.ConfigFile.FullName));
-    }*/
+        Service.Config = Service.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+    }
     internal void Save()
     {
         //File.WriteAllText(Service.PluginInterface.ConfigFile.FullName, JsonConvert.SerializeObject(Service.Config));

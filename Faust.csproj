@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Name>Faust-XIV</Name>
     <Author>Echo, Taco1932</Author>
-    <Punchline>Punching some lines.</Punchline>
+    <Punchline>Additional advanced modding tools.</Punchline>
     <Company></Company>
     <Version>1.0.0.0</Version>
-    <Description>Boop.</Description>
+    <Description>Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.</Description>
     <Copyright></Copyright>
 	<PackageProjectUrl>https://github.com/EchoDidAThing/Faust-XIV</PackageProjectUrl>
 	<NoWarn>CA1416</NoWarn>

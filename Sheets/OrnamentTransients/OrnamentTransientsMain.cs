@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class OrnamentTransientsMain
 {
-    const string type = "OrnamentTransients";
+    const string type = "Ornament UI";
     const string typename = "Ornament Transient";
     const string typenameplural = "Ornament Transients";
     const string searchPopup = "Search " + typenameplural;

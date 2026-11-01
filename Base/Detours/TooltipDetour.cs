@@ -29,6 +29,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Serilog.Events;
 using static FFXIVClientStructs.FFXIV.Client.UI.AddonRelicNoteBook;
 using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegates;
 using static FFXIVClientStructs.FFXIV.Client.UI.ListPanel.Delegates;
@@ -141,7 +142,7 @@ public unsafe class ShowTooltipDetour : IDisposable
                 repldesc = TraitTransientsManager.GetReplacement(idx).Description;
                 break;
             default:
-                Service.Log.Error("|" + HoveredAction.ActionKind + "| does not exist in GetOrigAndConfByType");
+                Logging.pluginDevLog(LogEventLevel.Error,"|" + HoveredAction.ActionKind + "| does not exist in GetOrigAndConfByType");
                 return null;
         }
 
@@ -216,8 +217,8 @@ public unsafe class ShowTooltipDetour : IDisposable
             LastHoveredAction = new HoveredActionInfo();
             LastHoveredAction.ActionID = 0;
         }
-        Service.Log.Error("LastHoveredAction" + LastHoveredAction.ActionID);
-        Service.Log.Info("ActionDetail triggered with type" + actionKind + " and ActionID " + FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetAdjustedActionId(actionId));
+        Logging.pluginDevLog(LogEventLevel.Error,"LastHoveredAction" + LastHoveredAction.ActionID);
+        Logging.pluginDevLog(LogEventLevel.Information,"ActionDetail triggered with type" + actionKind + " and ActionID " + FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetAdjustedActionId(actionId));
         try
         {
 
@@ -228,7 +229,7 @@ public unsafe class ShowTooltipDetour : IDisposable
         }
         catch (Exception e)
         {
-            Service.Log.Error(e, "Error in AgentActionDetailHoverEvent");
+            Logging.pluginDevLog(LogEventLevel.Error, e, "Error in AgentActionDetailHoverEvent");
         }
 
     }
@@ -239,7 +240,7 @@ public unsafe class ShowTooltipDetour : IDisposable
     {
         var returnValue = _ItemHoveredHook!.Original(a1, a2, containerid, slotid, a5, slotidint, a7);
         HoveredItem = *(InventoryItem*)(a7);
-        Service.Log.Info("Hovered item is " + HoveredItem.ItemId);
+        Logging.pluginDevLog(LogEventLevel.Information,"Hovered item is " + HoveredItem.ItemId);
         return returnValue;
     }
 
@@ -248,15 +249,15 @@ public unsafe class ShowTooltipDetour : IDisposable
 
     public unsafe void ReplaceATKString(AtkTextNode* atkNode, string basestring, string replacestring)
     {
-        //Service.Log.Info("HERE replaceatkText input text is " + atkNode->NodeText.ToString());
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE replaceatkText input text is " + atkNode->NodeText.ToString());
         if (!MakeSeString(atkNode, out ReadOnlySeString? seString))
         {
             return;
         }
 
-        //Service.Log.Info("HERE SEString is " + seString);
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE SEString is " + seString);
         ReplaceSeString(ref seString, basestring, replacestring);
-        //Service.Log.Info("HERE ReplaceSEString is " + seString);
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE ReplaceSEString is " + seString);
 
         var text = seString;
         using var rssb = new RentedSeStringBuilder();
@@ -264,16 +265,16 @@ public unsafe class ShowTooltipDetour : IDisposable
            rssb.Builder
               .Append(text)
               .GetViewAsSpan());
-        //Service.Log.Info("HERE replaceatkText output text is " + atkNode->NodeText.ToString());
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE replaceatkText output text is " + atkNode->NodeText.ToString());
     }
 
     public unsafe void ConvertATKString(AtkTextNode* atkNode, string replacestring)
     {
-        //Service.Log.Info("HERE replaceatkText input text is " + atkNode->NodeText.ToString());
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE replaceatkText input text is " + atkNode->NodeText.ToString());
         //FIXHERE
-        //Service.Log.Info("HERE SEString is " + seString);
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE SEString is " + seString);
         //ReadOnlySeString CreatePayloadsFromMacrostring(replacestring);
-        //Service.Log.Info("HERE ReplaceSEString is " + seString);
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE ReplaceSEString is " + seString);
 
         //atkNode->SetText(CreatePayloadsFromMacrostring(replacestring));
 
@@ -283,7 +284,7 @@ public unsafe class ShowTooltipDetour : IDisposable
            rssb.Builder
               .Append(text)
               .GetViewAsSpan());
-        //Service.Log.Info("HERE replaceatkText output text is " + atkNode->NodeText.ToString());
+        //Logging.pluginDevLog(LogEventLevel.Information,"HERE replaceatkText output text is " + atkNode->NodeText.ToString());
     }
     private ReadOnlySeString CreatePayloadsFromReplace(string baseString, string toReplace, string replaceWith)
     {
@@ -294,7 +295,7 @@ public unsafe class ShowTooltipDetour : IDisposable
             return builder.ToReadOnlySeString();
         }
 
-        //Service.Log.Info($"Trying to replace: ['{toReplace}'] with ['{replaceWith}'] in ['{baseString}'].");
+        //Logging.pluginDevLog(LogEventLevel.Information,$"Trying to replace: ['{toReplace}'] with ['{replaceWith}'] in ['{baseString}'].");
 
         string nodeText = baseString;
 
@@ -302,7 +303,7 @@ public unsafe class ShowTooltipDetour : IDisposable
 
         nodeText = Regex.Replace(nodeText, regString, forbiddenCharacter.ToString(), RegexOptions.IgnoreCase);
 
-        //Service.Log.Info($"After REGEX Replace of + " + regString + "  is." + nodeText);
+        //Logging.pluginDevLog(LogEventLevel.Information,$"After REGEX Replace of + " + regString + "  is." + nodeText);
         string[] splitStrings = Regex.Split(nodeText, @$"(\{forbiddenCharacter}+)");
 
         foreach (string splitString in splitStrings)
@@ -332,7 +333,7 @@ public unsafe class ShowTooltipDetour : IDisposable
         foreach (string substring in splitstring)
         {
 
-            Service.Log.Error("substring is" + substring);
+            Logging.pluginDevLog(LogEventLevel.Error,"substring is" + substring);
             if (substring.IsNullOrWhitespace()) {  continue; }
             else if (substring == "br")
             {
@@ -356,7 +357,7 @@ public unsafe class ShowTooltipDetour : IDisposable
             }
             else
             {
-                Service.Log.Error("unknown substring type in createpayloadsfrommacrosting of " + substring);
+                Logging.pluginDevLog(LogEventLevel.Error,"unknown substring type in createpayloadsfrommacrosting of " + substring);
                 continue;
             }
         }
@@ -366,24 +367,24 @@ public unsafe class ShowTooltipDetour : IDisposable
     private void ReplaceSeString(ref ReadOnlySeString? seString, string baseString, string replaceString)
     {
         Lumina.Text.SeStringBuilder builder = new Lumina.Text.SeStringBuilder();
-        //Service.Log.Info("INSIDE ReplaceSEString is " + seString.Payloads.Count + "payloads");
+        //Logging.pluginDevLog(LogEventLevel.Information,"INSIDE ReplaceSEString is " + seString.Payloads.Count + "payloads");
         foreach (var payload in seString)
         {
-            Service.Log.Info("INSIDE ReplaceSEString checkpayload is " + payload.ToString() + payload.Type);
+            Logging.pluginDevLog(LogEventLevel.Information,"INSIDE ReplaceSEString checkpayload is " + payload.ToString() + payload.Type);
             if (payload.Type != ReadOnlySePayloadType.Text)
             {
-                Service.Log.Info("notatext");
+                Logging.pluginDevLog(LogEventLevel.Information,"notatext");
                 builder.Append(payload.ToString());
                 continue;
             }
             else if (payload.ToString().Contains(baseString, StringComparison.OrdinalIgnoreCase))
             {
-                Service.Log.Info(" payload is " + payload.ToString().Replace(baseString, replaceString, StringComparison.OrdinalIgnoreCase));
+                Logging.pluginDevLog(LogEventLevel.Information," payload is " + payload.ToString().Replace(baseString, replaceString, StringComparison.OrdinalIgnoreCase));
                 builder.Append(payload.ToString().Replace(baseString, replaceString, StringComparison.OrdinalIgnoreCase));
                 continue;
             }
-            //Service.Log.Info("INSIDE ReplaceSEString textpayload is " + textPayload.Text);
-            //Service.Log.Info("INSIDE ReplaceSEString base and replace  is " + baseString + " + " + replaceString);
+            //Logging.pluginDevLog(LogEventLevel.Information,"INSIDE ReplaceSEString textpayload is " + textPayload.Text);
+            //Logging.pluginDevLog(LogEventLevel.Information,"INSIDE ReplaceSEString base and replace  is " + baseString + " + " + replaceString);
             //builder.Append(CreatePayloadsFromReplace(payload.ToString(), baseString, replaceString));
             
         }
@@ -461,14 +462,14 @@ public unsafe class ShowTooltipDetour : IDisposable
 
         if (origandreplace.Original.Name == origandreplace.Replacement.Name)
         {
-            //Service.Log.Error("ActionID: " + HoveredAction.ActionID + " does not have a changed entry to push");
+            //Logging.pluginDevLog(LogEventLevel.Error,"ActionID: " + HoveredAction.ActionID + " does not have a changed entry to push");
             return;
         }
-        //Service.Log.Error("Tooltipreqeustupdate triggered");
+        //Logging.pluginDevLog(LogEventLevel.Error,"Tooltipreqeustupdate triggered");
         if (origandreplace.Original.Name.ToLower() != origandreplace.Replacement.Name.ToLower() && nametextNode->NodeText.ToString().Split(" [")[0].ToLower() == origandreplace.Original.Name.ToLower() && origandreplace.Replacement.Name.ToLower() != "")
         {
-            //Service.Log.Error("OnTooltiprequestupdate NAMEtriggered");
-            //Service.Log.Error("Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
+            //Logging.pluginDevLog(LogEventLevel.Error,"OnTooltiprequestupdate NAMEtriggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
             SetText(nametextNode, backgroundNode, origandreplace.Original.Name, origandreplace.Replacement.Name);
         }
     }
@@ -496,7 +497,7 @@ public unsafe class ShowTooltipDetour : IDisposable
     }
     private void OnActionTooltipPreRequestedUpdate(AddonEvent addonEvent, AddonArgs addonArgs)
     {
-        Service.Log.Error("Actionrequestupdate triggered");
+        Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate triggered");
         //HandlePronounChange(addonEvent);
 
         AtkUnitBase* addonActionTooltip = (AtkUnitBase*)addonArgs.Addon.Address;
@@ -508,14 +509,14 @@ public unsafe class ShowTooltipDetour : IDisposable
         if (origandreplace.Original.JobAbbreviation != origandreplace.Replacement.JobAbbreviation && origandreplace.Replacement.JobAbbreviation != "")
         {
             AtkTextNode* jobtextNode = addonActionTooltip->GetTextNodeById(29);
-            Service.Log.Error("Actionrequestupdate ABBREVIATION triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate ABBREVIATION triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetText(jobtextNode, null, origandreplace.Original.JobAbbreviation, origandreplace.Replacement.JobAbbreviation);
         }
     }
     private void OrnamentNotebookPostRefresh(AddonEvent addonEvent, AddonArgs addonArgs)
     {
-        Service.Log.Error("Ornament Notebookupdate triggered");
+        Logging.pluginDevLog(LogEventLevel.Error,"Ornament Notebookupdate triggered");
         //HandlePronounChange(addonEvent);
 
 
@@ -530,14 +531,14 @@ public unsafe class ShowTooltipDetour : IDisposable
         {
             AtkTextNode* nameNode = addonNotebook->GetTextNodeById(60);
             if (nameNode->NodeText.ToString().ToLower() != origandreplace.Original.Name.ToLower()) { return; }
-            Service.Log.Error("OrnamentNotebookupdate NAME triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            Logging.pluginDevLog(LogEventLevel.Error,"OrnamentNotebookupdate NAME triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetTextNoSwap(nameNode, origandreplace.Replacement.Name);
         }
     }
     private void MountMinionNotebookPostRefresh(AddonEvent addonEvent, AddonArgs addonArgs)
     {
-        Service.Log.Error("Mount/MinionNotebookupdate triggered");
+        Logging.pluginDevLog(LogEventLevel.Error,"Mount/MinionNotebookupdate triggered");
         //HandlePronounChange(addonEvent);
 
         AtkUnitBase* addonNotebook = (AtkUnitBase*)addonArgs.Addon.Address;
@@ -552,8 +553,8 @@ public unsafe class ShowTooltipDetour : IDisposable
             uint nodeid = 65;
             if (HoveredAction.ActionKind.ToString() == "Companion") { nodeid = 67; }
             AtkTextNode* nameNode = addonNotebook->GetTextNodeById(nodeid);
-            Service.Log.Error("MountNotebookupdate NAME triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            Logging.pluginDevLog(LogEventLevel.Error,"MountNotebookupdate NAME triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetTextNoSwap(nameNode, origandreplace.Replacement.Name);
         }
         if (origandreplace.Original.DescriptionEnhanced != origandreplace.Replacement.DescriptionEnhanced && origandreplace.Replacement.DescriptionEnhanced != "")
@@ -561,16 +562,16 @@ public unsafe class ShowTooltipDetour : IDisposable
             uint nodeid = 66;
             if (HoveredAction.ActionKind.ToString() == "Companion") { nodeid = 68; }
             AtkTextNode* descriptionNode = addonNotebook->GetTextNodeById(nodeid);
-            Service.Log.Error("MountNotebookupdate ENHANCEDDESC triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            Logging.pluginDevLog(LogEventLevel.Error,"MountNotebookupdate ENHANCEDDESC triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetTextNoSwap(descriptionNode, origandreplace.Replacement.DescriptionEnhanced);
         }
         if (origandreplace.Original.Tooltip != origandreplace.Replacement.Tooltip && origandreplace.Replacement.Tooltip != "")
         {
             AtkTextNode* tooltipNode = addonNotebook->GetComponentByNodeId(2)->GetNodeById(2)->GetAsAtkComponentTextNineGrid()->GetTextNodeById(2);
             AtkResNode* tooltipbackgroundNode = addonNotebook->GetComponentByNodeId(2)->GetNodeById(2)->GetAsAtkComponentTextNineGrid()->GetNodeById(3);
-            Service.Log.Error("MountNotebookupdate tooltip triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            Logging.pluginDevLog(LogEventLevel.Error,"MountNotebookupdate tooltip triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetTextNoSwap(tooltipNode, origandreplace.Replacement.Tooltip);
             tooltipNode->ResizeNodeForCurrentText();
 
@@ -581,7 +582,7 @@ public unsafe class ShowTooltipDetour : IDisposable
     }
     private void OnActionTooltipPostRequestedUpdate(AddonEvent addonEvent, AddonArgs addonArgs)
     {
-        Service.Log.Error("Actionrequestupdate triggered");
+        Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate triggered");
         //HandlePronounChange(addonEvent);
 
         AtkUnitBase* addonActionTooltip = (AtkUnitBase*)addonArgs.Addon.Address;
@@ -593,22 +594,22 @@ public unsafe class ShowTooltipDetour : IDisposable
 
         //if (LastHoveredAction.ActionID == HoveredAction.ActionID ) { return; }
         LastHoveredAction.ActionID = HoveredAction.ActionID;
-        Service.Log.Error("Actionrequestupdate triggered");
+        Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate triggered");
 
         //AtkImageNode* ImageNode = ImageNodeComponent->GetImageNodeById(20);
         //AtkImageNode* ImageNode = (AtkImageNode*)(((AtkComponentIcon*)addonActionTooltip->GetNodeById(4))->GetNodeById(20));
 
-        //Service.Log.Error("Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
-        //Service.Log.Error("Icon Values at current location: " + origandreplace.Original.Icon + " + " + origandreplace.Replacement.Icon);
-        //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
-        //Service.Log.Error("nodetext: " + nametextNode->NodeText.ToString().Split(" [")[0]);
+        //Logging.pluginDevLog(LogEventLevel.Error,"Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
+        //Logging.pluginDevLog(LogEventLevel.Error,"Icon Values at current location: " + origandreplace.Original.Icon + " + " + origandreplace.Replacement.Icon);
+        //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+        //Logging.pluginDevLog(LogEventLevel.Error,"nodetext: " + nametextNode->NodeText.ToString().Split(" [")[0]);
 
         if (origandreplace.Original.Name.ToLower() != origandreplace.Replacement.Name.ToLower() && origandreplace.Replacement.Name.ToLower() != "")
         {
             AtkTextNode* nametextNode = addonActionTooltip->GetTextNodeById(5);
-            Service.Log.Error("Actionrequestupdate NAMEtriggered");
+            Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate NAMEtriggered");
             if ((nametextNode == null) || (nametextNode->NodeText.ToString().Split(" [")[0].ToLower() != origandreplace.Original.Name.ToLower())) { goto IconReplace; }
-            //Service.Log.Error("Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
+            //Logging.pluginDevLog(LogEventLevel.Error,"Name Values at current location: " + origandreplace.Original.Name + " + " + origandreplace.Replacement.Name);
             SetText(nametextNode, null, origandreplace.Original.Name, origandreplace.Replacement.Name);
         }
     IconReplace:
@@ -616,13 +617,13 @@ public unsafe class ShowTooltipDetour : IDisposable
         {
             AtkImageNode* ImageNode = addonActionTooltip->GetNodeById(4)->GetAsAtkComponentIcon()->GetImageNodeById(20);
             if (ImageNode == null) { goto DescReplace; }
-            //Service.Log.Error("Actionrequestupdate ICONtriggered");
-            //Service.Log.Error("Icon Values at current location: " + origandreplace.Original.Icon + " + " + origandreplace.Replacement.Icon);
+            //Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate ICONtriggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"Icon Values at current location: " + origandreplace.Original.Icon + " + " + origandreplace.Replacement.Icon);
             //why isn';'t this working. what can I do to fix it?
-            //Service.Log.Error("Icon Values at current location: " + );
+            //Logging.pluginDevLog(LogEventLevel.Error,"Icon Values at current location: " + );
             //string iconstring = "ui/icon/" + origandreplace.Replacement.Icon.ToString().PadLeft(6, '0').Substring(0, 3).PadRight(6, '0') + "/" + origandreplace.Replacement.Icon.ToString().PadLeft(6, '0') + ".tex";
             //string iconstring = "ui/icon/" + origandreplace.Replacement.Icon.ToString().Substring(0, 3).PadRight(6, '0') + "/" + origandreplace.Replacement.Icon.ToString().PadLeft(6, '0') + ".tex";
-            //Service.Log.Error(iconstring);
+            //Logging.pluginDevLog(LogEventLevel.Error,iconstring);
             ImageNode->LoadIconTexture(origandreplace.Replacement.Icon, 0);
         }
     DescReplace:
@@ -634,8 +635,8 @@ public unsafe class ShowTooltipDetour : IDisposable
             AtkResNode* backgroundNode4 = (AtkResNode*)addonActionTooltip->GetNodeById(27);
             AtkTextNode* desctextNode = addonActionTooltip->GetTextNodeById(19);
             if (desctextNode == null && backgroundNode == null && backgroundNode2 == null && backgroundNode3 == null && backgroundNode4 == null) { return; }
-            //Service.Log.Error("Actionrequestupdate DESC triggered");
-            //Service.Log.Error("desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
+            //Logging.pluginDevLog(LogEventLevel.Error,"Actionrequestupdate DESC triggered");
+            //Logging.pluginDevLog(LogEventLevel.Error,"desc Values at current location: " + origandreplace.Original.Description + " + " + origandreplace.Replacement.Description);
             SetTextNoSwap(desctextNode, origandreplace.Replacement.Description);
             desctextNode->ResizeNodeForCurrentText();
             desctextNode->SetWidth(342);
@@ -687,7 +688,7 @@ public unsafe class ShowTooltipDetour : IDisposable
 
     private void AtkTooltipManagerShowTooltipDetour(AtkTooltipManager* thisPtr, AtkTooltipType type, ushort parentId, AtkResNode* targetNode, AtkTooltipManager.AtkTooltipArgs* tooltipArgs, delegate* unmanaged[Stdcall]<float*, float*, AtkResNode*, void> unkDelegate, bool unk7, bool unk8)
     {
-        Service.Log.Info("ShowTooltip triggered with parentId" + parentId + "and type" + type.ToString());
+        Logging.pluginDevLog(LogEventLevel.Information,"ShowTooltip triggered with parentId" + parentId + "and type" + type.ToString());
         try
         {
             if (CheckifAllowedType(type.ToString())) { RelayShowTooltip(parentId); }

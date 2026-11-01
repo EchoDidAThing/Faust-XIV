@@ -1,9 +1,11 @@
 using System;
+using Faust.Base.Global;
 using Dalamud.Hooking;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
+using Serilog.Events;
 
 namespace Faust.Base.Detours;
 
@@ -24,7 +26,7 @@ public unsafe class Minionstuffs : IDisposable
         var companionObject = thisptr->CompanionObject;
         if (companionObject == null) return;
         //companionObject->Scale = 20f;
-        Service.Log.Error("companion triggered! " + thisptr->CompanionObject->GetName());
+        Logging.pluginDevLog(LogEventLevel.Error,"companion triggered! " + thisptr->CompanionObject->GetName());
     }
     public void Dispose()
     {

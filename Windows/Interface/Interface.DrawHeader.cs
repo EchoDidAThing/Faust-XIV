@@ -9,7 +9,7 @@ public sealed partial class ConfigWindow : Window
 {
     private static void DrawHeader()
     {
-        if (ImGui.Checkbox("Enable", ref Service.Config.EnableReplacement))
+        if (ImGui.Checkbox("Global Enable", ref Service.Config.EnableReplacement))
         {
             Service.Config.Save();
         }

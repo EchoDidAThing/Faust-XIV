@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class StatusTransientsMain
 {
-    const string type = "StatusTransients";
+    const string type = "Status UI";
     const string typename = "Status Transient";
     const string typenameplural = "Status Transients";
     const string searchPopup = "Search " + typenameplural;

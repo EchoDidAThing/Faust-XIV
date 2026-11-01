@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class TraitTransientsMain
 {
-    const string type = "TraitTransients";
+    const string type = "Trait UI";
     const string typename = "Trait Transient";
     const string typenameplural = "Trait Transients";
     const string searchPopup = "Search " + typenameplural;

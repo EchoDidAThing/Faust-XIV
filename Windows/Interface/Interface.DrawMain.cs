@@ -38,7 +38,7 @@ public sealed partial class ConfigWindow : Window
             }
         }
 
-        if (ImGui.Checkbox("Enable", ref _activeSet.Enabled))
+        if (ImGui.Checkbox("Set Enable", ref _activeSet.Enabled))
         {
             Service.Config.Save();
         }
@@ -50,7 +50,7 @@ public sealed partial class ConfigWindow : Window
             Service.Config.Save();
         }
 
-        if (ImGui.InputText("name", ref _activeSet.CharacterName, 512, ImGuiInputTextFlags.EnterReturnsTrue))
+        if (ImGui.InputText("Character Name", ref _activeSet.CharacterName, 512, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             Service.Config.Save();
         }
@@ -62,7 +62,7 @@ public sealed partial class ConfigWindow : Window
             _activeSet.CharacterName = playername;
         }
 
-        if (ImGui.InputUInt("HomeWorld", ref _activeSet.HomeWorld, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
+        if (ImGui.InputUInt("Character HomeWorld", ref _activeSet.HomeWorld, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
         {
             Service.Config.Save();
         }
@@ -121,6 +121,8 @@ public sealed partial class ConfigWindow : Window
         ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.GNB, "GNB", activeset.Name);
         ImGui.NextColumn();
+        //UiGlobals.DrawClassJobBool(ref activeset.Jobs.BAS, "BAS", activeset.Name);
+        //ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.WHM, "WHM", activeset.Name);
         ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.SCH, "SCH", activeset.Name);
@@ -149,6 +151,8 @@ public sealed partial class ConfigWindow : Window
         ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.DNC, "DNC", activeset.Name);
         ImGui.NextColumn();
+        //UiGlobals.DrawClassJobBool(ref activeset.Jobs.ZPH, "ZPH", activeset.Name);
+        //ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.BLM, "BLM", activeset.Name);
         ImGui.NextColumn();
         UiGlobals.DrawClassJobBool(ref activeset.Jobs.SMN, "SMN", activeset.Name);

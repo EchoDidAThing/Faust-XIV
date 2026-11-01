@@ -221,7 +221,6 @@ public unsafe class Mountstuffs : IDisposable
             if (mountObject != null)
             {
                 mountObject->Scale = (curvalue.Scale.GetByRaceAndSex(ownerObject->DrawData.CustomizeData.Race, ownerObject->GetSex())/100f);
-                
                 MountID = thisptr->MountId;
             }
             if (ownerObject != null)

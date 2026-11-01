@@ -18,7 +18,7 @@ public sealed partial class ConfigWindow : Window
     private Configuration.ReplacementSet? _activeSet;
 
     public ConfigWindow()
-        : base("Replacement" + typeof(ConfigWindow).Assembly.GetName().Version)
+        : base("Faust" + typeof(ConfigWindow).Assembly.GetName().Version)
     {
         SizeCondition = ImGuiCond.FirstUseEver;
         Size = new Vector2(1000, 1000);

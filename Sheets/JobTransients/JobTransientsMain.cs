@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class JobTransientsMain
 {
-    const string type = "JobTransients";
+    const string type = "Job UI";
     const string typename = "Job Transient";
     const string typenameplural = "Job Transients";
     const string searchPopup = "Search " + typenameplural;

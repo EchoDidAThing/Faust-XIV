@@ -17,7 +17,7 @@ namespace Faust.Sheets;
 #region Main
 public class MountTransientsMain
 {
-    const string type = "MountTransients";
+    const string type = "Mount UI";
     const string typename = "Mount Transient";
     const string typenameplural = "Mount Transients";
     const string searchPopup = "Search " + typenameplural;
