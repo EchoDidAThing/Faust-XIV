@@ -1,34 +1,15 @@
 #Echo's TODO
 - add A way to prevent all changes until validated for a new patch.
 - add dev override for that stop so we can actually do fixes.
-- add more sheets to check if okay:
-  -BGM
-  -ActionCastTimeline
-  -ActionTimeline
-  -WeaponTimeline
-  -Generalaction
-  -Petaction
-  -Ornamentaction?
-  -Item?
-  -Itemaction?
-  -Craftaction?
-  -Motiontimelineblendtable
-  -motiontimelineadvanced
-  -modelchara?
-  -status
-  -statusloopvfx[added; needs verification]
-  -statushiteffect
-- Try to find a way to make adding new values and sheets not a struggle.
-- add handling for multiple strings if needed.
-- Add codepath to create custom entries(reference field, edited fields). Saved without indexes and dynamically updated.
-- For above may need to leverage an edited EXD file for initial load to initialize the lines.
-- Redo readme
-- Automatically generate/update mod to enable default paths for stuff.
 - More graceful configfile handling to allow for it to handle changes in data.
 - When Saving Data, Only save edited values.
 - Fix config loading to skip unknown sets.
 - Add some sort of config verification.
 - -Add copypath buttons for stuff like vfx.
+- Add more features - housing light removal, housing vfx endpoint adding, scene lights for various things so we can leverage more than point lights, action and status vfx and animation custom paths, adding, animation attaching beyond the player to allow for mounts to leverage stuff like tp animations.
+- more UI stuff.
+- clean up code some more so we can have a testing version.
+- maybe interface adjustments. 
 
 #taco's to-do:
 - limit input values to prevent the log from going haywire
@@ -46,9 +27,9 @@
 Special credit to Loskh for the original development, and to DethiCra for completely rebuilding the plugin, as well as creating the interface.
 
 
-Use `/atr` to access the config window quicker.
+Use `/faust` to access the config window quicker.
 
 ## Q&A
 
 ### Can these changes be detected by the server?
-Mostly no, but also sort of yes because I like being bad. If it's especially dangerous and it's clearly labelled as such, it won't be included because there's no reason to go there.
+As far as we are aware they should not be. There is an effort here to ensure everything is client side and impacts what the server sees as little as possible.
