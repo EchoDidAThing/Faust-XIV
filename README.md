@@ -22,10 +22,12 @@
 `FieldOffset(0x??)` is the actual address being updated. Lumina sheets are just used for pulling base data. so, technically, if the column doesn't exist in the source data, a dummy field can be supplied, although that does make things slightly obtuse.
 
 
-# ActionTimelineReplacement, a.k.a. ATR
+# Instructions
 
-Special credit to Loskh for the original development, and to DethiCra for completely rebuilding the plugin, as well as creating the interface.
-
+Add the following custom repository in `/xlsettings > Experimental`:
+```
+https://raw.githubusercontent.com/EchoDidAThing/Faust-XIV/Public/repo.json
+```
 
 Use `/faust` to access the config window quicker.
 
