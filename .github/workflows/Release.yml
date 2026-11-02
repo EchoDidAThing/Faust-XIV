@@ -60,8 +60,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Faust Release ${{ github.ref }}
+          tag_name: v${{ steps.package_version.outputs.version }}
+          release_name: Faust Release v${{ steps.package_version.outputs.version }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
