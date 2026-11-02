@@ -82,9 +82,9 @@ jobs:
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json[0].AssemblyVersion = $ver
           $json[0].TestingAssemblyVersion = $ver
-          $json[0].DownloadLinkInstall = $json.DownloadLinkInstall -replace '[^/]+/Faust-Beta.zip',"$ver/Faust.zip"
-          $json[0].DownloadLinkTesting = $json.DownloadLinkTesting -replace '[^/]+/Faust-Beta.zip',"$ver/Faust.zip"
-          $json[0].DownloadLinkUpdate = $json.DownloadLinkUpdate -replace '[^/]+/Faust-Beta.zip',"$ver/Faust.zip"
+          $json[0].DownloadLinkInstall = $json.DownloadLinkInstall -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
+          $json[0].DownloadLinkTesting = $json.DownloadLinkTesting -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
+          $json[0].DownloadLinkUpdate = $json.DownloadLinkUpdate -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
           $content = $json | ConvertTo-Json -AsArray
           set-content -Path $path -Value $content
 
