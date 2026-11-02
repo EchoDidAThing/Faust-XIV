@@ -38,22 +38,22 @@ jobs:
       - name: Build
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          invoke-expression 'dotnet build Faust-XIV.sln --no-restore --configuration Beta --nologo -p:Version=$ver -p:FileVersion=$ver -p:AssemblyVersion=$ver'
+          invoke-expression 'dotnet build Faust-XIV.sln --no-restore --configuration Release --nologo -p:Version=$ver -p:FileVersion=$ver -p:AssemblyVersion=$ver'
       - name: write version into jsons
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          $path = "./$env:PROJECT_DIR/bin/Beta/$env:PLUGIN.json"
+          $path = "./$env:PROJECT_DIR/bin/Release/$env:PLUGIN.json"
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json.AssemblyVersion = $ver
           $content = $json | ConvertTo-Json5
           set-content -Path $path -Value $content
       - name: Archive
-        run: Compress-Archive -Path Faust/bin/Beta/* -DestinationPath Faust-Beta.zip
+        run: Compress-Archive -Path Faust/bin/Release/* -DestinationPath Faust.zip
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
           path: |
-            ./Faust-XIV/bin/Beta/*
+            ./Faust-XIV/bin/Release/*
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Faust Beta ${{ github.ref }}
+          release_name: Faust Release ${{ github.ref }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
@@ -71,8 +71,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./Faust-Beta.zip
-          asset_name: Faust-Beta.zip
+          asset_path: ./Faust.zip
+          asset_name: Faust.zip
           asset_content_type: application/zip
 
       - name: Write out repo.json
