@@ -31,7 +31,6 @@ public sealed class Plugin : IDalamudPlugin
         //Service.Config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Service.Config.Load();
         Service.Config.Save();
-        
 
         _disposables = [new WindowManager()];
 
