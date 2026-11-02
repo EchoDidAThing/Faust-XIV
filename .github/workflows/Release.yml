@@ -42,7 +42,7 @@ jobs:
       - name: write version into jsons
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          $path = "./$env:PROJECT_DIR/bin/Release/$env:PLUGIN.json"
+          $path = '\bin\x64\Release\Faust.json'
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json.AssemblyVersion = $ver
           $content = $json | ConvertTo-Json5
