@@ -1,0 +1,9 @@
+{
+  "Name": "Faust",
+  "Author": "Echo, Taco1932",
+  "Punchline": "Additional advanced modding tools.",
+  "Description": "Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.",
+  "RepoUrl": "https://github.com/EchoDidAThing/Faust-XIV",
+  "Tags": ["pain"],
+  "IconUrl": "https://raw.githubusercontent.com/EchoDidAThing/Faust-XIV/blob/Public/faust.png"
+}
