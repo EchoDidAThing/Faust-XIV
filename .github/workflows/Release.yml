@@ -77,14 +77,14 @@ jobs:
 
       - name: Write out repo.json
         run: |
-          $ver = 'v${{ steps.package_version.outputs.version }}'
+          $ver = '${{ steps.package_version.outputs.version }}'
           $path = './repo.json'
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json[0].AssemblyVersion = $ver
           $json[0].TestingAssemblyVersion = $ver
-          $json[0].DownloadLinkInstall = $json.DownloadLinkInstall -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
-          $json[0].DownloadLinkTesting = $json.DownloadLinkTesting -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
-          $json[0].DownloadLinkUpdate = $json.DownloadLinkUpdate -replace '[^/]+/Faust.zip',"$ver/Faust.zip"
+          $json[0].DownloadLinkInstall = $json.DownloadLinkInstall -replace '[^/]+/Faust.zip',"v$ver/Faust.zip"
+          $json[0].DownloadLinkTesting = $json.DownloadLinkTesting -replace '[^/]+/Faust.zip',"v$ver/Faust.zip"
+          $json[0].DownloadLinkUpdate = $json.DownloadLinkUpdate -replace '[^/]+/Faust.zip',"v$ver/Faust.zip"
           $content = $json | ConvertTo-Json -AsArray
           set-content -Path $path -Value $content
 
