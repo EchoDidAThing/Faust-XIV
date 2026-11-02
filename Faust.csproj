@@ -5,7 +5,7 @@
     <Author>Echo, Taco1932</Author>
     <Punchline>Additional advanced modding tools.</Punchline>
     <Company></Company>
-    <Version>0.9.0.6</Version>
+    <Version>0.9.0.7</Version>
     <Description>Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.</Description>
     <Copyright></Copyright>
 	<PackageProjectUrl>https://github.com/EchoDidAThing/Faust-XIV</PackageProjectUrl>
@@ -13,24 +13,4 @@
 	<AssemblyName>Faust</AssemblyName>
 	<RootNamespace>Faust</RootNamespace>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Platforms>x64</Platforms>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-  </PropertyGroup>
-  
-   <PropertyGroup Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'">
-    <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
-  </PropertyGroup>
-  
-   <ItemGroup>
-     <PackageReference Update="DotNet.ReproducibleBuilds" Version="2.0.5" />
-   </ItemGroup>
-  
 </Project>
