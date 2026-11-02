@@ -40,7 +40,7 @@ jobs:
       - name: write version into jsons
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          $path = './bin/Beta/Faust-Beta.json'
+          $path = './bin/Beta/Faust.json'
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json.AssemblyVersion = $ver
           $content = $json | ConvertTo-Json5
