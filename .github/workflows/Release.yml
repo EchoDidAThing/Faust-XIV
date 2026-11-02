@@ -48,7 +48,7 @@ jobs:
           $content = $json | ConvertTo-Json
           set-content -Path $path -Value $content
       - name: Archive
-        run: Compress-Archive -Path Faust-XIV/bin/x64/Release/* -DestinationPath Faust.zip
+        run: Compress-Archive -Path ./bin/x64/Release/* -DestinationPath Faust.zip
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
