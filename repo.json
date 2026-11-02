@@ -1,22 +1,22 @@
 [
-	{
-		"Name": "ActionTimelineReplacement(aka. ATR)",
-		"Author": "Loskh,Papachin,DethiCra",
-		"Punchline": "A simple plugin to replace timelines of actions.",
-		"Description": "A simple plugin to replace timelines of actions.",
-		"RepoUrl": "https://github.com/papapachin/ActionTimelineReplacement/tree/Global",
-		"InternalName": "ActionTimelineReplacement",
-		"AssemblyVersion": "1.0.0.1",
-		"TestingAssemblyVersion": "1.0.0.1",
-		"ApplicableVersion": "any",
-		"DalamudApiLevel": 14,
-		"IsHide": "False",
-		"IsTestingExclusive": "False",
-		"DownloadCount": 0,
-		"LastUpdate": 0,
-		"DownloadLinkInstall": "https://github.com/papapachin/ActionTimelineReplacement/releases/download/1.0.0.0/latest.zip",
-		"DownloadLinkTesting": "https://github.com/papapachin/ActionTimelineReplacement/releases/download/1.0.0.0/latest.zip",
-		"DownloadLinkUpdate": "https://github.com/papapachin/ActionTimelineReplacement/releases/download/1.0.0.0/latest.zip",
-		"IconUrl": "https://raw.githubusercontent.com/papapachin/ActionTimelineReplacement/Global/actiontimeline.png"
-	}
+  {
+    "Name": "Faust-XIV",
+    "Author": "Echo, Taco1932",
+    "Punchline": "Additional advanced modding tools.",
+    "Description": "Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.",
+    "RepoUrl": "https://github.com/EchoDidAThing/Faust-XIV/tree/Public",
+    "InternalName": "Faust",
+    "AssemblyVersion": "0.9.0.3",
+    "TestingAssemblyVersion": "0.9.0.3",
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": 14,
+    "IsHide": "False",
+    "IsTestingExclusive": "False",
+    "DownloadCount": 0,
+    "LastUpdate": 0,
+    "DownloadLinkInstall": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.3/Faust.zip",
+    "DownloadLinkTesting": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.3/Faust.zip",
+    "DownloadLinkUpdate": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.3/Faust.zip",
+    "IconUrl": "https://raw.githubusercontent.com/EchoDidAThing/Faust-XIV/Public/faust.png"
+  }
 ]
