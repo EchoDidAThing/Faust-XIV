@@ -6,17 +6,17 @@
     "Description": "Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.",
     "RepoUrl": "https://github.com/EchoDidAThing/Faust-XIV/tree/Public",
     "InternalName": "Faust",
-    "AssemblyVersion": "0.9.0.5",
-    "TestingAssemblyVersion": "0.9.0.5",
+    "AssemblyVersion": "0.9.0.6",
+    "TestingAssemblyVersion": "0.9.0.6",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 14,
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "DownloadCount": 0,
     "LastUpdate": 0,
-    "DownloadLinkInstall": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.5/Faust.zip",
-    "DownloadLinkTesting": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.5/Faust.zip",
-    "DownloadLinkUpdate": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.5/Faust.zip",
+    "DownloadLinkInstall": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.6/Faust.zip",
+    "DownloadLinkTesting": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.6/Faust.zip",
+    "DownloadLinkUpdate": "https://github.com/EchoDidAThing/Faust-XIV/releases/download/v0.9.0.6/Faust.zip",
     "IconUrl": "https://raw.githubusercontent.com/EchoDidAThing/Faust-XIV/Public/faust.png"
   }
 ]
