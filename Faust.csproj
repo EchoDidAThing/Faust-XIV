@@ -30,8 +30,8 @@
   </PropertyGroup>
   
    <ItemGroup>
-     <PackageReference Update="DalamudPackager" Version="15.0.0" />
      <PackageReference Update="DotNet.ReproducibleBuilds" Version="2.0.5" />
+     <PackageReference Remove="DalamudPackager" />
    </ItemGroup>
   
 </Project>
