@@ -1,6 +1,6 @@
 {
-  "Name": "ATR Custom",
-  "Author": "Echo / taco, via Loskh, Papachin, and DethiCra",
+  "Name": "Faust",
+  "Author": "Echo, Taco1932",
   "Punchline": "Additional advanced modding tools.",
   "Description": "Plugin to manage properties that players may want to edit, but are not usually exposed, and in a manner that only applies to them.",
   "RepoUrl": "https://github.com/EchoDidAThing/Faust-XIV",
