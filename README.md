@@ -6,6 +6,7 @@
 - Fix config loading to skip unknown sets.
 - Add some sort of config verification.
 - -Add copypath buttons for stuff like vfx.
+- Change classjob stuff from stringmatch to enum.
 - Add more features - housing light removal, housing vfx endpoint adding, scene lights for various things so we can leverage more than point lights, action and status vfx and animation custom paths, adding, animation attaching beyond the player to allow for mounts to leverage stuff like tp animations.
 - more UI stuff.
 - clean up code some more so we can have a testing version.
