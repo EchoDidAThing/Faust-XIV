@@ -12,6 +12,8 @@ jobs:
     runs-on: windows-latest
     env:
       HUSKY: 0
+      PLUGIN: Faust
+      PROJECT_DIR: Faist-XIV
     steps:
       - uses: actions/checkout@v5
         with:
