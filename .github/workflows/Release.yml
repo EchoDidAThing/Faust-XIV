@@ -24,7 +24,7 @@ jobs:
           dotnet-version: |
               10.x.x
       - name: Restore dependencies
-        run: dotnet restore Faust.csproj
+        run: dotnet restore Faust-XIV.sln
       - name: Get version
         id: package_version
         uses: KageKirin/get-csproj-version@v1.0.0
@@ -38,7 +38,7 @@ jobs:
       - name: Build
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          invoke-expression 'dotnet build Faust.csproj --no-restore --configuration Beta --nologo -p:Version=$ver -p:FileVersion=$ver -p:AssemblyVersion=$ver'
+          invoke-expression 'dotnet build Faust-XIV.sln --no-restore --configuration Beta --nologo -p:Version=$ver -p:FileVersion=$ver -p:AssemblyVersion=$ver'
       - name: write version into jsons
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
