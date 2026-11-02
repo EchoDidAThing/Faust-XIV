@@ -40,7 +40,7 @@ jobs:
       - name: write version into jsons
         run: |
           $ver = '${{ steps.package_version.outputs.version }}'
-          $path = './Faust/bin/Beta/Faust-Beta.json'
+          $path = './Faust-XIV/bin/Beta/Faust-Beta.json'
           $json = Get-Content -Raw $path | ConvertFrom-Json
           $json.AssemblyVersion = $ver
           $content = $json | ConvertTo-Json5
@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            ./Faust/bin/Beta/*
+            ./Faust-XIV/bin/Beta/*
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
