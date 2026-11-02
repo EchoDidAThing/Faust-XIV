@@ -13,7 +13,7 @@ jobs:
     env:
       HUSKY: 0
       PLUGIN: Faust
-      PROJECT_DIR: Faist-XIV
+      PROJECT_DIR: Faust-XIV
     steps:
       - uses: actions/checkout@v5
         with:
