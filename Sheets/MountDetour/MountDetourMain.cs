@@ -58,12 +58,14 @@ public class MountDetourMain
 
                     
                     #region Datainputs
+                    ImGui.BeginDisabled();
                     UiGlobals.DrawUInt("Ride BGM Index", type, key, enablechanges, ref LocalWriter.Replacement.BGMIndex, old.BGMIndex, true, ["BGM_Path"]);
+                    ImGui.EndDisabled();
                     UiGlobals.DrawString("Ride BGM Path", type, key, enablechanges, ref LocalWriter.Replacement.BGMPath, old.BGMPath);
-                    UiGlobals.DrawInt("Rise/Sink Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiseSinkTilt, old.RiseSinkTilt);
+                    //UiGlobals.DrawInt("Rise/Sink Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiseSinkTilt, old.RiseSinkTilt);
                     UiGlobals.DrawFloat("Walk Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.WalkAnimationSpeed, old.WalkAnimationSpeed);
                     UiGlobals.DrawFloat("Run Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.RunAnimationSpeed, old.RunAnimationSpeed);
-                    UiGlobals.DrawFloat("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
+                    //UiGlobals.DrawFloat("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawFloat("Male Midlander Model Scale", type, key, enablechanges, ref LocalWriter.Replacement.Scale.MaleMidlander, old.Scale.MaleMidlander);
                     UiGlobals.DrawFloat("Female Midlander Model Scale", type, key, enablechanges, ref LocalWriter.Replacement.Scale.FemaleMidlander, old.Scale.MaleMidlander);
@@ -104,29 +106,29 @@ public class MountDetourMain
                     UiGlobals.DrawFloat("Female Viera Model Camera Scale", type, key, enablechanges, ref LocalWriter.Replacement.CameraScale.FemaleViera, old.CameraScale.FemaleViera);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawByte("Mount Ground Tilt Origin", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.TiltOrigin, old.MountGroundTilt.TiltOrigin);
-                    UiGlobals.DrawByte("Mount Ground Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.Unk1, old.MountGroundTilt.Unk1);
-                    UiGlobals.DrawByte("Mount Ground Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.Unk2, old.MountGroundTilt.Unk2);
+                    //UiGlobals.DrawByte("Mount Ground Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.Unk1, old.MountGroundTilt.Unk1);
+                    //UiGlobals.DrawByte("Mount Ground Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.Unk2, old.MountGroundTilt.Unk2);
                     UiGlobals.DrawFloat("Mount Ground Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.TiltAngle, old.MountGroundTilt.TiltAngle);
                     UiGlobals.DrawFloat("Mount Ground Tilt Speed", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.TiltSpeed, old.MountGroundTilt.TiltSpeed);
                     UiGlobals.DrawBool("Mount Ground Reverse Tilt", type, key, enablechanges, ref LocalWriter.Replacement.MountGroundTilt.ReverseRotation, old.MountGroundTilt.ReverseRotation);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawByte("Mount Flight Tilt Origin", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.TiltOrigin, old.MountFlightTilt.TiltOrigin);
-                    UiGlobals.DrawByte("Mount Flight Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.Unk1, old.MountFlightTilt.Unk1);
-                    UiGlobals.DrawByte("Mount Flight Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.Unk2, old.MountFlightTilt.Unk2);
+                    //UiGlobals.DrawByte("Mount Flight Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.Unk1, old.MountFlightTilt.Unk1);
+                    //UiGlobals.DrawByte("Mount Flight Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.Unk2, old.MountFlightTilt.Unk2);
                     UiGlobals.DrawFloat("Mount Flight Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.TiltAngle, old.MountFlightTilt.TiltAngle);
                     UiGlobals.DrawFloat("Mount Flight Tilt Speed", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.TiltSpeed, old.MountFlightTilt.TiltSpeed);
                     UiGlobals.DrawBool("Mount Flight Reverse Tilt", type, key, enablechanges, ref LocalWriter.Replacement.MountFlightTilt.ReverseRotation, old.MountFlightTilt.ReverseRotation);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawByte("Rider Ground Tilt Origin", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.TiltOrigin, old.RiderGroundTilt.TiltOrigin);
-                    UiGlobals.DrawByte("Rider Ground Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.Unk1, old.RiderGroundTilt.Unk1);
-                    UiGlobals.DrawByte("Rider Ground Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.Unk2, old.RiderGroundTilt.Unk2);
+                    //UiGlobals.DrawByte("Rider Ground Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.Unk1, old.RiderGroundTilt.Unk1);
+                    //UiGlobals.DrawByte("Rider Ground Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.Unk2, old.RiderGroundTilt.Unk2);
                     UiGlobals.DrawFloat("Rider Ground Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.TiltAngle, old.RiderGroundTilt.TiltAngle);
                     UiGlobals.DrawFloat("Rider Ground Tilt Speed", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.TiltSpeed, old.RiderGroundTilt.TiltSpeed);
                     UiGlobals.DrawBool("Rider Ground Reverse Tilt", type, key, enablechanges, ref LocalWriter.Replacement.RiderGroundTilt.ReverseRotation, old.RiderGroundTilt.ReverseRotation);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawByte("Rider Flight Tilt Origin", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.TiltOrigin, old.RiderFlightTilt.TiltOrigin);
-                    UiGlobals.DrawByte("Rider Flight Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.Unk1, old.RiderFlightTilt.Unk1);
-                    UiGlobals.DrawByte("Rider Flight Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.Unk2, old.RiderFlightTilt.Unk2);
+                    //UiGlobals.DrawByte("Rider Flight Unknown1", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.Unk1, old.RiderFlightTilt.Unk1);
+                    //UiGlobals.DrawByte("Rider Flight Unknown2", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.Unk2, old.RiderFlightTilt.Unk2);
                     UiGlobals.DrawFloat("Rider Flight Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.TiltAngle, old.RiderFlightTilt.TiltAngle);
                     UiGlobals.DrawFloat("Rider Flight Tilt Speed", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.TiltSpeed, old.RiderFlightTilt.TiltSpeed);
                     UiGlobals.DrawBool("Rider Flight Reverse Tilt", type, key, enablechanges, ref LocalWriter.Replacement.RiderFlightTilt.ReverseRotation, old.RiderFlightTilt.ReverseRotation);

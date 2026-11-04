@@ -130,7 +130,9 @@ public unsafe class Mountstuffs : IDisposable
         char tempout = _WalkAnimSpeedHook!.Original(thisptr, a1);
         //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
         *a1 = walkanimspeed;
+        //What are these, and how could one access them?
         //a1[1] = 0;
+        //a1[2] = 0;
         //Logging.pluginDevLog(LogEventLevel.Warning,"overallspeed is " + thisptr->OverallSpeed);
         return tempout;
     }
@@ -140,6 +142,9 @@ public unsafe class Mountstuffs : IDisposable
         char tempout = _RunAnimSpeedHook!.Original(thisptr, a1);
         //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
         *a1 = runanimspeed;
+        //What are these, and how could one access them?
+        //a1[1] = 0;
+        //a1[2] = 0;
         //Logging.pluginDevLog(LogEventLevel.Warning,"overallspeed is " + thisptr->OverallSpeed);
         return tempout;
     }

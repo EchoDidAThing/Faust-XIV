@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Lumina.Excel.Sheets;
 
 namespace Faust.Base.Global;
 
@@ -564,8 +565,8 @@ public class UiGlobals
                 copyenabled = false;
                 return output;
             case "BGM_Path":
-                //output = BGMManager.GetReplacement(key).String1;
-                output = "BGM Not Implemented";
+                output = Service.DataManager.GetExcelSheet<BGM>()?.GetRow(key).File.ToString();
+                //output = "BGM Not Implemented";
                 return output;
             case "ICON":
                 if (key != 0) { output = "ui/icon/" + key.ToString().Substring(0, 3).PadRight(6, '0') + "/" + key.ToString().PadLeft(6, '0') + ".tex"; }
