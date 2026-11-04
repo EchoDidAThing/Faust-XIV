@@ -42,7 +42,7 @@ public static class TraitTransientsManager
         {
             if (item.CharacterName != Service.PlayerState.CharacterName) continue;
             if (item.HomeWorld != Service.PlayerState.HomeWorld.RowId) continue;
-            if (!item.Jobs.CheckJob(Service.PlayerState.ClassJob.Value.Abbreviation.ToString())) continue;
+            if (!item.Jobs.CheckJob(Service.PlayerState.ClassJob.RowId)) continue;
             if (!item.Enabled) continue;
             foreach (var replacement in item.TraitTransientsWriter)
             {

@@ -61,9 +61,9 @@ public class MountDetourMain
                     UiGlobals.DrawUInt("Ride BGM Index", type, key, enablechanges, ref LocalWriter.Replacement.BGMIndex, old.BGMIndex, true, ["BGM_Path"]);
                     UiGlobals.DrawString("Ride BGM Path", type, key, enablechanges, ref LocalWriter.Replacement.BGMPath, old.BGMPath);
                     UiGlobals.DrawInt("Rise/Sink Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiseSinkTilt, old.RiseSinkTilt);
-                    UiGlobals.DrawInt("Ground Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.GroundAnimationSpeed, old.GroundAnimationSpeed);
-                    UiGlobals.DrawInt("Flight Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.FlightAnimationSpeed, old.FlightAnimationSpeed);
-                    UiGlobals.DrawInt("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
+                    UiGlobals.DrawFloat("Walk Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.WalkAnimationSpeed, old.WalkAnimationSpeed);
+                    UiGlobals.DrawFloat("Run Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.RunAnimationSpeed, old.RunAnimationSpeed);
+                    UiGlobals.DrawFloat("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
                     UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawFloat("Male Midlander Model Scale", type, key, enablechanges, ref LocalWriter.Replacement.Scale.MaleMidlander, old.Scale.MaleMidlander);
                     UiGlobals.DrawFloat("Female Midlander Model Scale", type, key, enablechanges, ref LocalWriter.Replacement.Scale.FemaleMidlander, old.Scale.MaleMidlander);

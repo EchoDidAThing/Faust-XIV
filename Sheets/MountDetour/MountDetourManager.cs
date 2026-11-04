@@ -38,7 +38,7 @@ public static class MountDetourManager
         {
             if (item.CharacterName != Service.PlayerState.CharacterName) continue;
             if (item.HomeWorld != Service.PlayerState.HomeWorld.RowId) continue;
-            if (!item.Jobs.CheckJob(Service.PlayerState.ClassJob.Value.Abbreviation.ToString())) continue;
+            if (!item.Jobs.CheckJob(Service.PlayerState.ClassJob.RowId)) continue;
             if (!item.Enabled) continue;
             foreach (var replacement in item.MountDetourWriter)
             {
@@ -69,12 +69,17 @@ public static class MountDetourManager
             var act5 = Service.DataManager.GetExcelSheet<TiltParam>()?.GetRow(act?.Unknown_70_2 ?? 0);
             var act6 = Service.DataManager.GetExcelSheet<TiltParam>()?.GetRow(act?.Unknown16 ?? 0);
             var act7 = Service.DataManager.GetExcelSheet<TiltParam>()?.GetRow(act?.Unknown17 ?? 0);
+            var act8 = Service.DataManager.GetExcelSheet<ModelSkeleton>()?.GetRow(Service.DataManager.GetExcelSheet<ModelChara>()?.GetRow(act?.ModelChara.RowId ?? 0).Model ?? 0);
+            float motionwalk = act?.BaseMotionSpeed_Walk ?? 0;
+            if (motionwalk == 0) motionwalk = act8?.Unknown0 ?? 0;
+            float motionrun = act?.BaseMotionSpeed_Run ?? 0;
+            if (motionrun == 0) motionrun = act8?.Unknown1 ?? 0;
             replacement = new MountDetourReplace(
                 act?.RideBGM.RowId ?? 0,
                 act2?.File.ToString() ?? "",
                 act?.Unknown5 ?? 0,
-                act?.BaseMotionSpeed_Walk ?? 0,
-                act?.BaseMotionSpeed_Run ?? 0,
+                motionwalk / 100,
+                motionrun / 100,
                 act?.Unknown9 ?? 0,
                 new RacialScalingSet (
                     act3?.HyurMidlanderMaleScale ?? 0,

@@ -115,9 +115,9 @@ public class MountDetourReplace(
     string bgmPath, 
     //int floatHeight,
     int riseSinkTilt,
-    int groundAnimationSpeed,
-    int flightAnimationSpeed,
-    int swimAnimationSpeed,
+    float groundAnimationSpeed,
+    float flightAnimationSpeed,
+    float swimAnimationSpeed,
     RacialScalingSet modelScale,
     RacialScalingSet cameraScale,
     TiltSet mountGroundTilt,
@@ -129,9 +129,9 @@ public class MountDetourReplace(
     public string BGMPath = bgmPath;
     //int FloatHeight = floatHeight;
     public int RiseSinkTilt = riseSinkTilt;
-    public int GroundAnimationSpeed = groundAnimationSpeed;
-    public int FlightAnimationSpeed = flightAnimationSpeed;
-    public int SwimAnimationSpeed = swimAnimationSpeed;
+    public float WalkAnimationSpeed = groundAnimationSpeed;
+    public float RunAnimationSpeed = flightAnimationSpeed;
+    public float SwimAnimationSpeed = swimAnimationSpeed;
     public RacialScalingSet Scale = modelScale;
     public RacialScalingSet CameraScale = cameraScale;
     public TiltSet MountGroundTilt = mountGroundTilt;

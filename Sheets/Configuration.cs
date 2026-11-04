@@ -5,6 +5,7 @@ using Faust;
 using Dalamud.Configuration;
 using FFXIVClientStructs;
 using FFXIVClientStructs.FFXIV.Client.Graphics;
+using Lumina.Excel.Sheets;
 using Newtonsoft.Json;
 #pragma warning disable CA1416 // Validate platform compatibility
 
@@ -83,55 +84,55 @@ public class Configuration : IPluginConfiguration
         public bool BTN = btn;
         public bool FSH = fsh;
 
-        public bool CheckJob(string job)
+        public bool CheckJob(uint job)
         {
             switch (job)
             {
-                case "GLA": return this.GLA;
-                case "MRD": return this.MRD;
-                case "CNJ": return this.CNJ;
-                case "PGL": return this.PGL;
-                case "LNC": return this.LNC;
-                case "ROG": return this.ROG;
-                case "ARC": return this.ARC;
-                case "THM": return this.THM;
-                case "ACN": return this.ACN;
-                case "PLD": return this.PLD;
-                case "WAR": return this.WAR;
-                case "DRK": return this.DRK;
-                case "GNB": return this.GNB;
+                case 1: return this.GLA;
+                case 3: return this.MRD;
+                case 6: return this.CNJ;
+                case 2: return this.PGL;
+                case 4: return this.LNC;
+                case 29: return this.ROG;
+                case 5: return this.ARC;
+                case 7: return this.THM;
+                case 26: return this.ACN;
+                case 19: return this.PLD;
+                case 21: return this.WAR;
+                case 32: return this.DRK;
+                case 37: return this.GNB;
                 //case "BAS": return this.BAS;
-                case "WHM": return this.WHM;
-                case "SCH": return this.SCH;
-                case "AST": return this.AST;
-                case "SGE": return this.SGE;
-                case "MNK": return this.MNK;
-                case "DRG": return this.DRG;
-                case "NIN": return this.NIN;
-                case "SAM": return this.SAM;
-                case "RPR": return this.RPR;
-                case "VPR": return this.VPR;
-                case "BST": return this.BST;
-                case "BRD": return this.BRD;
-                case "MCH": return this.MCH;
-                case "DNC": return this.DNC;
+                case 24: return this.WHM;
+                case 28: return this.SCH;
+                case 33: return this.AST;
+                case 40: return this.SGE;
+                case 20: return this.MNK;
+                case 22: return this.DRG;
+                case 30: return this.NIN;
+                case 34: return this.SAM;
+                case 39: return this.RPR;
+                case 41: return this.VPR;
+                case 43: return this.BST;
+                case 23: return this.BRD;
+                case 31: return this.MCH;
+                case 38: return this.DNC;
                 //case "ZPH": return this.ZPH;
-                case "BLM": return this.BLM;
-                case "SMN": return this.SMN;
-                case "RDM": return this.RDM;
-                case "PCT": return this.PCT;
-                case "BLU": return this.BLU;
-                case "CRP": return this.CRP;
-                case "BSM": return this.BSM;
-                case "ARM": return this.ARM;
-                case "GSM": return this.GSM;
-                case "LTW": return this.LTW;
-                case "WVR": return this.WVR;
-                case "ALC": return this.ALC;
-                case "CUL": return this.CUL;
-                case "MIN": return this.MIN;
-                case "BTN": return this.BTN;
-                case "FSH": return this.FSH;
+                case 25: return this.BLM;
+                case 27: return this.SMN;
+                case 35: return this.RDM;
+                case 42: return this.PCT;
+                case 36: return this.BLU;
+                case 8: return this.CRP;
+                case 9: return this.BSM;
+                case 10: return this.ARM;
+                case 11: return this.GSM;
+                case 12: return this.LTW;
+                case 13: return this.WVR;
+                case 14: return this.ALC;
+                case 15: return this.CUL;
+                case 16: return this.MIN;
+                case 17: return this.BTN;
+                case 18: return this.FSH;
                 default:
                     {
                         Service.Log.Info(job + " does not exist in checkjob switch");

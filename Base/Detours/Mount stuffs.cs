@@ -41,6 +41,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using Lumina.Excel.Sheets;
 using Serilog.Events;
 using static FFXIVClientStructs.FFXIV.Client.UI.AddonRelicNoteBook;
 using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegates;
@@ -77,18 +78,22 @@ public unsafe class Mountstuffs : IDisposable
         byte Race;
         
     }
-
+    
     public bool BGMPathUpdate = false;
     public uint MountID = 0;
     public SoundManager* lastSoundManager;
     public string lastbgmpath = "superdefaulttext0w0";
     public bool trykill = false;
     private MountDetourReplace curvalue;
+    public float walkanimspeed = 0;
+    public float runanimspeed = 0;
 
     private delegate void MountUpdateDelegate(MountContainer* thisptr);
     private delegate void MountDismountDelegate(MountContainer* a1, char* a2);
+    private delegate char WalkAnimSpeedDelegate(TimelineContainer* thisptr, float* a1);
+    private delegate char RunAnimSpeedDelegate(TimelineContainer* thisptr, float* a1);
 
-
+    
     private readonly Hook<MountContainer.Delegates.CreateAndSetupMount>? _CreateAndSetupMountHook;
     private readonly Hook<MountContainer.Delegates.SetupMount>? _SetupMountHook;
     private readonly Hook<EffectContainer.Delegates.LoadMountTiltData>? _SetupMountTiltDataHook;
@@ -96,6 +101,8 @@ public unsafe class Mountstuffs : IDisposable
     private readonly Hook<MountUpdateDelegate>? _MountUpdateHook;
     private readonly Hook<MountDismountDelegate>? _MountDismountHook;
     private readonly Hook<SoundManager.Delegates.PlayBGMSound>? _PlayBGMSoundHook;
+    private readonly Hook<WalkAnimSpeedDelegate>? _WalkAnimSpeedHook;
+    private readonly Hook<RunAnimSpeedDelegate>? _RunAnimSpeedHook;
 
     public Mountstuffs()
     {
@@ -105,12 +112,36 @@ public unsafe class Mountstuffs : IDisposable
         _PlayBGMSoundHook = Service.GameInteropProvider.HookFromAddress<SoundManager.Delegates.PlayBGMSound>(SoundManager.Addresses.PlayBGMSound.Value, PlayBGMSoundDetour);
         _MountDismountHook = Service.GameInteropProvider.HookFromSignature<MountDismountDelegate>(Hooks.MountDismount, MountDismountDetour);
         
+        _WalkAnimSpeedHook = Service.GameInteropProvider.HookFromSignature<WalkAnimSpeedDelegate>(Hooks.walkanimspeedhook, WalkAnimSpeedDetour);
+        _RunAnimSpeedHook = Service.GameInteropProvider.HookFromSignature<RunAnimSpeedDelegate>(Hooks.runanimspeedhook, RunAnimSpeedDetour);
+        
         this._SetupMountTiltDataHook.Enable();
         this._SetupRiderTiltDataHook.Enable();
         this._MountUpdateHook.Enable();
         this._PlayBGMSoundHook.Enable();
         this._MountDismountHook.Enable();
+        
+        this._WalkAnimSpeedHook.Enable();
+        this._RunAnimSpeedHook.Enable();
 
+    }
+    private char WalkAnimSpeedDetour(TimelineContainer* thisptr, float* a1)
+    {
+        char tempout = _WalkAnimSpeedHook!.Original(thisptr, a1);
+        //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
+        *a1 = walkanimspeed;
+        //a1[1] = 0;
+        //Logging.pluginDevLog(LogEventLevel.Warning,"overallspeed is " + thisptr->OverallSpeed);
+        return tempout;
+    }
+
+    private char RunAnimSpeedDetour(TimelineContainer* thisptr, float* a1)
+    {
+        char tempout = _RunAnimSpeedHook!.Original(thisptr, a1);
+        //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
+        *a1 = runanimspeed;
+        //Logging.pluginDevLog(LogEventLevel.Warning,"overallspeed is " + thisptr->OverallSpeed);
+        return tempout;
     }
     
     private void SetupMountTiltDataDetour(EffectContainer* thisptr)
@@ -149,6 +180,9 @@ public unsafe class Mountstuffs : IDisposable
                     thisptr->MountFlightSwimTiltFlags = EffectContainer.TiltFlags.None;
                     break;
             }
+            
+            walkanimspeed = curvalue.WalkAnimationSpeed;
+            runanimspeed = curvalue.RunAnimationSpeed;
         }
     }
     private SoundData* PlayBGMSoundDetour(SoundManager* thisptr, CStringPointer path)
@@ -237,6 +271,8 @@ public unsafe class Mountstuffs : IDisposable
         _MountDismountHook!.Original(a1, a2);
         if (lastSoundManager == null) return;
         if (a1->OwnerObject->GetName().ToString() != Service.PlayerState.CharacterName) return;
+        walkanimspeed = 0;
+        runanimspeed = 0;
         foreach (var soundData in lastSoundManager->SoundDataPool->Entries)
         {
             if (soundData.GetFileName().ExtractText() == lastbgmpath)
@@ -258,5 +294,9 @@ public unsafe class Mountstuffs : IDisposable
         this._MountUpdateHook.Dispose();
         this._MountDismountHook.Dispose();
         this._PlayBGMSoundHook.Dispose();
+        
+        
+        this._WalkAnimSpeedHook.Dispose();
+        this._RunAnimSpeedHook.Dispose();
     }
 }

@@ -54,7 +54,7 @@ public class UiGlobals
     public static bool CheckIsEnabled(bool global, Configuration.ReplacementSet set, bool local)
     {
         if ((global) && (set.Enabled) && (local) && 
-            (set.Jobs.CheckJob(Service.PlayerState.ClassJob.Value.Abbreviation.ToString())) &&
+            (set.Jobs.CheckJob(Service.PlayerState.ClassJob.RowId)) &&
             (set.HomeWorld == Service.PlayerState.HomeWorld.RowId) &&
             (set.CharacterName == Service.PlayerState.CharacterName))
         {
