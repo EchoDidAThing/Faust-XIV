@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Dalamud.Utility;
+using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using Lumina.Excel.Sheets;
 
 namespace Faust.Base.Global;
@@ -57,7 +59,7 @@ public class UiGlobals
         if ((global) && (set.Enabled) && (local) && 
             (set.Jobs.CheckJob(Service.PlayerState.ClassJob.RowId)) &&
             (set.HomeWorld == Service.PlayerState.HomeWorld.RowId) &&
-            (set.CharacterName == Service.PlayerState.CharacterName))
+             (set.CharacterName == Service.PlayerState.CharacterName))
         {
             return true;
         }
@@ -87,40 +89,103 @@ public class UiGlobals
         return small ? ImGui.SmallButton(label) : ImGui.Button(label);
     }
 
-    public static void DrawCombo(string mainkey, ref string activesheet, Configuration.ReplacementSet activeset)
+    public static void DrawComboEnum<T>(string name, string type, uint key, bool changesenabled, ref T value,
+        T defaultvalue,Type maintype, bool sheethasindirects = false ,List<string> indirecttype = null) where T : INumber<T>
     {
-        ImRaii.ColorDisposable styletype = new ImRaii.ColorDisposable();
-        styletype.Pop();
-        uint countvalue = GetSheetCounts(mainkey, activeset);
-        string buttontext = mainkey;
-        if (countvalue >=1)
+        Dictionary<T , string> values = [];
+        if (maintype.IsEnum)
         {
-            buttontext += " [" + countvalue + "]";
+            foreach (T entry in Enum.GetValues(maintype))
+            {
+                values.Add(entry, Enum.GetName(maintype, entry));
+            }
         }
-        else
+        if (values.Count == 0) return;
+        T relay = value;
+        if (indirecttype == null) { indirecttype = ["NO"]; }
+        string refname = name.Replace(" ", "");
+        using (var combo = ImRaii.Combo("##" + refname + key, Enum.GetName(maintype, relay), ImGuiComboFlags.HeightLarge))
         {
-            styletype.Pop();
-            styletype.Push(ImGuiCol.Text, FADED_WHITE);
-            styletype.Push(ImGuiCol.Button, NO_ALPHA);
+            if (combo)
+            {
+                foreach (var entry in values)
+                {
+                    if (ImGui.Selectable(entry.Value+ "##" + refname + entry.Value + key))
+                    {
+                        relay = entry.Key;
+                        value = relay;
+                        Service.Config.Save();
+                    }
+                }
+            
+            }
         }
-        if (mainkey == activesheet)
+        ImGui.SameLine();
+        
+        using (ImRaii.PushFont(UiBuilder.IconFont))
         {
-            styletype.Pop();
-            styletype.Push(ImGuiCol.Button, DARK_GREEN);
-            styletype.Push(ImGuiCol.Text, FULL_WHITE);
+            if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
+            {
+                value = defaultvalue;
+                Service.Config.Save();
+            }
         }
-        else
+        ImGui.SameLine();
+        ImGui.TextUnformatted(name);
+        if (sheethasindirects)
         {
-            styletype.Push(ImGuiCol.Button, BASE_ALPHA);
-        }
-        styletype.Push(ImGuiCol.ButtonHovered, FADED_DARK_GREEN);
-        using var style = styletype;
-        if (ImGui.Button(buttontext))
-        {
-            activesheet = mainkey;
+            ResolveIndirectDraw(indirecttype, refname, key, Convert.ToUInt32(value));
         }
     }
-
+    public static void DrawComboEXD(string name, string type, uint key, bool changesenabled, ref uint value,
+        uint defaultvalue, bool sheethasindirects = false ,List<string> indirecttype = null)
+    {
+        Dictionary<uint , string> values = [];
+        if (type == "Homeworld")
+        {
+            foreach (var entry in Service.DataManager.Excel.GetSheet<World>().Where(world  => world.IsPublic).Where(world  => world.Region == Service.PlayerState.HomeWorld.Value.Region)) 
+            {
+                values.Add(entry.RowId, entry.Name.ExtractText());
+            }
+        }
+        if (values.Count == 0) return;
+        uint relay = value;
+        if (indirecttype == null) { indirecttype = ["NO"]; }
+        string refname = name.Replace(" ", "");
+        if (!values.ContainsKey(relay)) relay = values.First().Key;
+        using (var combo = ImRaii.Combo("##" + refname + key, values[relay], ImGuiComboFlags.HeightLarge))
+        {
+            if (combo)
+            {
+                foreach (var entry in values)
+                {
+                    if (ImGui.Selectable(entry.Value+ "##" + refname + entry.Value + key))
+                    {
+                        relay = entry.Key;
+                        value = relay;
+                        Service.Config.Save();
+                    }
+                }
+            
+            }
+        }
+        ImGui.SameLine();
+        
+        using (ImRaii.PushFont(UiBuilder.IconFont))
+        {
+            if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
+            {
+                value = defaultvalue;
+                Service.Config.Save();
+            }
+        }
+        ImGui.SameLine();
+        ImGui.TextUnformatted(name);
+        if (sheethasindirects)
+        {
+            ResolveIndirectDraw(indirecttype, refname, key, Convert.ToUInt32(value));
+        }
+    }
     public static void DrawSheetButton(string mainkey, ref string activesheet, Configuration.ReplacementSet activeset)
     {
         ImRaii.ColorDisposable styletype = new ImRaii.ColorDisposable();
@@ -493,7 +558,10 @@ public class UiGlobals
             case "Action UI":
                 output = ActionTransientsManager.Names;
                 return output;
-            case "Companion UI":
+            case "Minion Properties":
+                output = CompanionDetourManager.Names;
+                return output;
+            case "Minion UI":
                 output = CompanionTransientsManager.Names;
                 return output;
             case "Job UI":
@@ -527,7 +595,10 @@ public class UiGlobals
             case "Action UI":
                 output = (uint)activeset.ActionTransientsWriter.Count();
                 return output;
-            case "Companion UI":
+            case "Minion Properties":
+                output = (uint)activeset.CompanionDetourWriter.Count();
+                return output;
+            case "Minion UI":
                 output = (uint)activeset.CompanionTransientsWriter.Count();
                 return output;
             case "Job UI":

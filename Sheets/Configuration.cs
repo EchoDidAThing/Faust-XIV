@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Faust;
 using Dalamud.Configuration;
+using Faust.Base.Global;
 using FFXIVClientStructs;
 using FFXIVClientStructs.FFXIV.Client.Graphics;
 using Lumina.Excel.Sheets;
@@ -212,6 +213,7 @@ public class Configuration : IPluginConfiguration
     string charactername,
     uint homeworld,
     Dictionary<uint, ActionTransientsConfig> actiontransientswriter,
+    Dictionary<uint, CompanionDetourConfig> Companiondetourwriter,
     Dictionary<uint, CompanionTransientsConfig> companiontransientswriter,
     Dictionary<uint, JobTransientsConfig> jobtransientswriter,
     Dictionary<uint, MountLightConfig> mountlightwriter,
@@ -235,6 +237,7 @@ public class Configuration : IPluginConfiguration
 
         //TOSETUP: add new dictionary here
         public Dictionary<uint, ActionTransientsConfig> ActionTransientsWriter { get; set; } = actiontransientswriter;
+        public Dictionary<uint, CompanionDetourConfig> CompanionDetourWriter { get; set; } = Companiondetourwriter;
         public Dictionary<uint, CompanionTransientsConfig> CompanionTransientsWriter { get; set; } = companiontransientswriter;
         public Dictionary<uint, JobTransientsConfig> JobTransientsWriter { get; set; } = jobtransientswriter;
         public Dictionary<uint, MountDetourConfig> MountDetourWriter { get; set; } = mountdetourwriter;

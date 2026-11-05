@@ -19,6 +19,7 @@ public sealed partial class ConfigWindow : Window
 
     //TOSETUP: Add new search here
     private string _searchActionTransients = string.Empty;
+    private string _searchCompanionDetour = string.Empty;
     private string _searchCompanionTransients = string.Empty;
     private string _searchJobTransients = string.Empty;
     private string _searchMountDetour = string.Empty;
@@ -34,12 +35,13 @@ public sealed partial class ConfigWindow : Window
         {
             //TOSETUP: Add new headers here
             _allHeaders.Add("Action UI", []);
-            _allHeaders.Add("Companion UI", []);
+            _allHeaders.Add("Minion UI", []);
             _allHeaders.Add("Job UI", []);
             _allHeaders.Add("Mount UI", []);
             _allHeaders.Add("Ornament UI", []);
-            _allHeaders.Add("Status UI", []);
-            _allHeaders.Add("Trait UI", []);
+            //_allHeaders.Add("Status UI", []);
+            //_allHeaders.Add("Trait UI", []);
+            _allHeaders.Add("Minion Properties", []);
             _allHeaders.Add("Mount Properties", []);
             //_AllHeaders.Add("PointMenuChoice", []);
 
@@ -56,7 +58,10 @@ public sealed partial class ConfigWindow : Window
             case "Action UI":
                 ActionTransientsMain.Draw(activesheet, ref _activeSet, ref _searchActionTransients);
                 break;
-            case "Companion UI":
+            case "Minion Properties":
+                CompanionDetourMain.Draw(activesheet, ref _activeSet, ref _searchCompanionDetour);
+                break;
+            case "Minion UI":
                 CompanionTransientsMain.Draw(activesheet, ref _activeSet, ref _searchCompanionTransients);
                 break;
             case "Job UI":

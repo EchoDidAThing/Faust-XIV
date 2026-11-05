@@ -1,6 +1,7 @@
 using System;
 using Faust.Base.Global;
 using Dalamud.Hooking;
+using Faust.Sheets;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
@@ -25,8 +26,17 @@ public unsafe class Minionstuffs : IDisposable
         _SetupCompanionHook!.Original(thisptr, companionId, param);
         var companionObject = thisptr->CompanionObject;
         if (companionObject == null) return;
-        //companionObject->Scale = 20f;
-        Logging.pluginDevLog(LogEventLevel.Error,"companion triggered! " + thisptr->CompanionObject->GetName());
+        var companionOwnerObject = companionObject->GetParentCharacter();
+        if (companionOwnerObject == null) return;
+        //Logging.pluginDevLog(LogEventLevel.Error,"companion triggered! " + companionId);
+        if ((companionOwnerObject->GetName().ToString() == Service.PlayerState.CharacterName)
+            && (companionOwnerObject->HomeWorld == Service.PlayerState.HomeWorld.RowId)
+            && (companionId != 0))
+        {
+            var companionvalue = CompanionDetourManager.GetReplacement((uint)companionId);
+            //Logging.pluginDevLog(LogEventLevel.Error,"companion triggered! " + companionvalue.ModelScale);
+            companionObject->Scale = companionvalue.ModelScale / 100;
+        }
     }
     public void Dispose()
     {

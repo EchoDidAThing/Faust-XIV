@@ -12,6 +12,8 @@ using Lumina.Excel.Sheets.Experimental;
 using System;
 using System.Numerics;
 using System.Threading.Channels;
+using World = Lumina.Excel.Sheets.World;
+
 #pragma warning disable CA1416 // Validate platform compatibility
 
 namespace Faust.Interface;
@@ -62,15 +64,7 @@ public sealed partial class ConfigWindow : Window
             _activeSet.CharacterName = playername;
         }
         
-        /*if (ImRaii.Combo()  ("Character HomeWorld", ref _activeSet.HomeWorld, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
-        {
-            Service.Config.Save();
-        }*/
-
-        if (ImGui.InputUInt("Character HomeWorld", ref _activeSet.HomeWorld, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
-        {
-            Service.Config.Save();
-        }
+        UiGlobals.DrawComboEXD("Character HomeWorld", "Homeworld",0,true, ref _activeSet.HomeWorld, 0);
 
         ImGui.SameLine();
         if (ImGui.Button("Current##world"))
@@ -78,20 +72,6 @@ public sealed partial class ConfigWindow : Window
             uint worldname = Service.PlayerState.HomeWorld.RowId;
             _activeSet.HomeWorld = worldname;
         }
-
-        if (Service.DataManager.GetExcelSheet<Lumina.Excel.Sheets.World>().TryGetRow(_activeSet.HomeWorld, out var worldRow))
-        {
-            using (ImRaii.PushFont(UiBuilder.IconFont))
-            ImGui.Text($"{FontAwesomeIcon.ArrowTurnUp.ToIconString()}");
-            ImGui.SameLine();
-            ImGui.Text(worldRow.Name.ToString());
-        }
-        else
-        {
-            ImGui.SameLine();
-            ImGui.Text("Invalid world.");
-        }
-
         ImGui.NewLine();
 
         DrawJobSelectors(ref _activeSet);

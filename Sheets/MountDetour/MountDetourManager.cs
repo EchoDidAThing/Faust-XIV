@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Faust.Base.Global;
 using Lumina.Excel.Sheets;
+using Serilog.Events;
+
 #pragma warning disable CA1416 // Validate platform compatibility
 
 namespace Faust.Sheets;
@@ -45,7 +48,6 @@ public static class MountDetourManager
                 if (replacement.Key != idx) continue;
                 if (!replacement.Value.Enabled) continue;
                 replacements.Add(new KeyValuePair<int, MountDetourReplace>(item.Priority, replacement.Value.Replacement));
-
             }
         }
         if (replacements.Count == 0) { return null; }
