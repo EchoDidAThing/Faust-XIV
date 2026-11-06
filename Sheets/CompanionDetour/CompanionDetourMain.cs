@@ -59,10 +59,10 @@ public class CompanionDetourMain
 
                     
                     #region Datainputs
-                    UiGlobals.DrawFloat("Walk Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.WalkAnimationSpeed, old.WalkAnimationSpeed);
-                    UiGlobals.DrawFloat("Run Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.RunAnimationSpeed, old.RunAnimationSpeed);
+                    //UiGlobals.DrawFloat("Walk Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.WalkAnimationSpeed, old.WalkAnimationSpeed);
+                    //UiGlobals.DrawFloat("Run Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.RunAnimationSpeed, old.RunAnimationSpeed);
                     //UiGlobals.DrawFloat("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
-                    UiGlobals.DrawItemSeparator();
+                    //UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawFloat("Scale", type, key, enablechanges, ref LocalWriter.Replacement.ModelScale, old.ModelScale);
                    
 

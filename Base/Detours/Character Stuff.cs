@@ -75,7 +75,7 @@ public unsafe class Characterstuffs : IDisposable
         char tempout = _WalkAnimSpeedHook!.Original(thisptr, a1);
         var ownerobject = thisptr->OwnerObject;
         if (ownerobject == null) return tempout;
-        if ((ownerobject->ObjectKind == ObjectKind.Mount) || (ownerobject->ObjectKind == ObjectKind.Companion))
+        if ((ownerobject->ObjectKind == ObjectKind.Mount) /*|| (ownerobject->ObjectKind == ObjectKind.Companion)*/)
         {
             var ownerownerobject = ownerobject->GetParentCharacter();
             if (ownerownerobject == null) return tempout;
@@ -90,19 +90,19 @@ public unsafe class Characterstuffs : IDisposable
                     *a1 = mountvalue.WalkAnimationSpeed;
                 }
             }
-            if (ownerobject->ObjectKind == ObjectKind.Companion)
+            //Logging.pluginDevLog(LogEventLevel.Warning,"baseid is " + ownerobject->BaseId);
+            /*if (ownerobject->ObjectKind == ObjectKind.Companion)
             {
-                //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + ownerobject);
-
                 if ((ownerownerobject->GetName().ToString() == Service.PlayerState.CharacterName)
                     && (ownerownerobject->HomeWorld == Service.PlayerState.HomeWorld.RowId)
-                    && (ownerownerobject->IsMounted() == true) && (ownerownerobject->CompanionData.CompanionId != 0))
+                    && (ownerobject->BaseId != 0))
                 {
-                    var companionvalue = MountDetourManager.GetReplacement(ownerownerobject->CompanionData.CompanionId);
-                    //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + companionvalue.WalkAnimationSpeed);
+                    var companionvalue = CompanionDetourManager.GetReplacement(ownerobject->BaseId);
                     *a1 = companionvalue.WalkAnimationSpeed;
+                    //Logging.pluginDevLog(LogEventLevel.Warning,"walkspeed is " + *a1);
+
                 }
-            }
+            }*/
         }
         //What are these, and how could one access them?
         //a1[1] = 0;
@@ -113,11 +113,11 @@ public unsafe class Characterstuffs : IDisposable
 
     private char RunAnimSpeedDetour(TimelineContainer* thisptr, float* a1)
     {
-        char tempout = _RunAnimSpeedHook!.Original(thisptr, a1);
         //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
+        char tempout = _RunAnimSpeedHook!.Original(thisptr, a1);
         var ownerobject = thisptr->OwnerObject;
         if (ownerobject == null) return tempout;
-        if (ownerobject->ObjectKind == ObjectKind.Mount)
+        if ((ownerobject->ObjectKind == ObjectKind.Mount) /*|| (ownerobject->ObjectKind == ObjectKind.Companion)*/)
         {
             var ownerownerobject = ownerobject->GetParentCharacter();
             if (ownerownerobject == null) return tempout;
@@ -128,9 +128,22 @@ public unsafe class Characterstuffs : IDisposable
                     && (ownerownerobject->IsMounted() == true) && (ownerownerobject->Mount.MountId != 0))
                 {
                     var mountvalue = MountDetourManager.GetReplacement(ownerownerobject->Mount.MountId);
+                    //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + mountvalue.WalkAnimationSpeed);
                     *a1 = mountvalue.RunAnimationSpeed;
                 }
             }
+            /*if (ownerobject->ObjectKind == ObjectKind.Companion)
+            {
+                //Logging.pluginDevLog(LogEventLevel.Warning,"runspeed is " + ownerownerobject->HomeWorld);
+                if ((ownerownerobject->GetName().ToString() == Service.PlayerState.CharacterName)
+                    && (ownerownerobject->HomeWorld == Service.PlayerState.HomeWorld.RowId)
+                    && (ownerobject->BaseId != 0))
+                {
+                    var companionvalue = CompanionDetourManager.GetReplacement(ownerobject->BaseId);
+                    *a1 = companionvalue.RunAnimationSpeed;
+                    Logging.pluginDevLog(LogEventLevel.Warning,"runspeed is " + *a1);
+                }
+            }*/
         }
         //What are these, and how could one access them?
         //a1[1] = 0;
