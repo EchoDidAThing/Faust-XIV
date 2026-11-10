@@ -9,7 +9,7 @@
     "AssemblyVersion": "0.9.0.8",
     "TestingAssemblyVersion": "0.9.0.8",
     "ApplicableVersion": "any",
-    "DalamudApiLevel": 15,
+    "DalamudApiLevel": 14,
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "DownloadCount": 0,
