@@ -93,7 +93,7 @@ public static unsafe class Hooks
     #endregion
     #region sigs
 
-    public static ActionData* GetActionData(uint RowId)
+    /*public static ActionData* GetActionData(uint RowId)
     {
         _getActionDataHook ??= Marshal.GetDelegateForFunctionPointer<GetActionDataDelegate>(Service.Scanner.ScanText(
             "E8 ?? ?? ?? ?? F6 40 3E 10"));
@@ -190,6 +190,7 @@ public static unsafe class Hooks
         return _getPlaceNameDataHook(RowId);
     }
     */
+    /*
     public static ActionTimelineData* GetActionTimelineData(uint RowId)
     {
         _getActionTimelineDataHook ??= Marshal.GetDelegateForFunctionPointer<GetActionTimelineDataDelegate>(Service.Scanner.ScanText(
@@ -252,7 +253,7 @@ public static unsafe class Hooks
         return _getVFXDataHookpublic(RowId);
     }
 
-
+    */
     /*
     public static PointMenuChoiceData* GetPointMenuChoiceData(float RowId)
     {
