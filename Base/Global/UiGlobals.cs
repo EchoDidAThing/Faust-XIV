@@ -561,7 +561,7 @@ public class UiGlobals
             case "Minion Properties":
                 output = CompanionDetourManager.Names;
                 return output;
-            case "Minion UI":
+            case "Companion UI":
                 output = CompanionTransientsManager.Names;
                 return output;
             case "Job UI":
@@ -570,7 +570,7 @@ public class UiGlobals
             case "Mount Properties":
                 output = MountDetourManager.Names;
                 return output;
-            case "Companion UI":
+            case "Mount UI":
                 output = MountTransientsManager.Names;
                 return output;
             case "Ornament UI":
