@@ -64,6 +64,23 @@ public class CompanionDetourMain
                     //UiGlobals.DrawFloat("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
                     //UiGlobals.DrawItemSeparator();
                     UiGlobals.DrawFloat("Scale", type, key, enablechanges, ref LocalWriter.Replacement.ModelScale, old.ModelScale);
+                    UiGlobals.DrawByte("inactiveIdle0", type, key, enablechanges, ref LocalWriter.Replacement.InactiveIdle0, old.InactiveIdle0);
+                    UiGlobals.DrawByte("inactiveIdle1", type, key, enablechanges, ref LocalWriter.Replacement.InactiveIdle1, old.InactiveIdle1);
+                    UiGlobals.DrawByte("inactiveBattle0", type, key, enablechanges, ref LocalWriter.Replacement.InactiveBattle, old.InactiveBattle);
+                    UiGlobals.DrawByte("inactiveWandering", type, key, enablechanges, ref LocalWriter.Replacement.InactiveWandering, old.InactiveWandering);
+                    UiGlobals.DrawComboEnum<byte>("Behaviour", type, key, enablechanges, ref LocalWriter.Replacement.Behaviour, old.Behaviour, typeof(CompanionMove));
+                    UiGlobals.DrawByte("Special", type, key, enablechanges, ref LocalWriter.Replacement.Special, old.Special);
+                    //UiGlobals.DrawByte("Unknown10", type, key, enablechanges, ref LocalWriter.Replacement.Unknown10, old.Unknown10);
+                    //UiGlobals.DrawByte("Unknown11", type, key, enablechanges, ref LocalWriter.Replacement.Unknown11, old.Unknown11);
+                    UiGlobals.DrawByte("WanderingWait", type, key, enablechanges, ref LocalWriter.Replacement.WanderingWait, old.WanderingWait);
+                    //UiGlobals.DrawUShort("priority", type, key, enablechanges, ref LocalWriter.Replacement.Priority, old.Priority);
+                    //UiGlobals.DrawBool("unknown5", type, key, enablechanges, ref LocalWriter.Replacement.Unknown5, old.Unknown5);
+                    //UiGlobals.DrawBool("unknown6", type, key, enablechanges, ref LocalWriter.Replacement.Unknown6, old.Unknown6);
+                    //UiGlobals.DrawBool("unknown7", type, key, enablechanges, ref LocalWriter.Replacement.Unknown7, old.Unknown7);
+                    //UiGlobals.DrawBool("unknown8", type, key, enablechanges, ref LocalWriter.Replacement.Unknown8, old.Unknown8);
+                    //UiGlobals.DrawBool("unknown9", type, key, enablechanges, ref LocalWriter.Replacement.Unknown9, old.Unknown9);
+                    UiGlobals.DrawUShort("Enemy", type, key, enablechanges, ref LocalWriter.Replacement.Enemy, old.Enemy);
+                    UiGlobals.DrawBool("IsBattle", type, key, enablechanges, ref LocalWriter.Replacement.IsBattle, old.IsBattle);
                    
 
                     UiGlobals.DrawItemSeparator();

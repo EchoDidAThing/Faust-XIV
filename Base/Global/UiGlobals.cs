@@ -570,7 +570,7 @@ public class UiGlobals
             case "Mount Properties":
                 output = MountDetourManager.Names;
                 return output;
-            case "Mount UI":
+            case "Companion UI":
                 output = MountTransientsManager.Names;
                 return output;
             case "Ornament UI":

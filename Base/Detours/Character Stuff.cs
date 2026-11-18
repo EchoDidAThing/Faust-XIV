@@ -48,6 +48,8 @@ using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegate
 using static FFXIVClientStructs.FFXIV.Client.UI.ListPanel.Delegates;
 using static Lumina.Data.Parsing.Uld.NodeData;
 using static System.Net.Mime.MediaTypeNames;
+using Companion = FFXIVClientStructs.FFXIV.Client.Game.Character.Companion;
+using CompanionMove = FFXIVClientStructs.FFXIV.Client.Game.Character.CompanionMove;
 
 namespace ActionTimelineReplace.Base.Detours;
 
@@ -59,6 +61,10 @@ public unsafe class Characterstuffs : IDisposable
 
     private readonly Hook<WalkAnimSpeedDelegate>? _WalkAnimSpeedHook;
     private readonly Hook<RunAnimSpeedDelegate>? _RunAnimSpeedHook;
+    
+    
+    private delegate Companion* companionPropsDelegate(GameObject* thisptr, int companiontype, uint companionID);
+    private readonly Hook<companionPropsDelegate>? _companionPropsHook;
 
     public Characterstuffs()
     {
@@ -67,6 +73,11 @@ public unsafe class Characterstuffs : IDisposable
         
         this._WalkAnimSpeedHook.Enable();
         this._RunAnimSpeedHook.Enable();
+        
+        _companionPropsHook = Service.GameInteropProvider.HookFromSignature<companionPropsDelegate>(Hooks.companionminionprops, companionPropsDetour);
+        
+        
+        this._companionPropsHook.Enable();
 
     }
     private char WalkAnimSpeedDetour(TimelineContainer* thisptr, float* a1)
@@ -152,10 +163,51 @@ public unsafe class Characterstuffs : IDisposable
         return tempout;
     }
     
+    
+    private Companion* companionPropsDetour(GameObject* thisptr, int companiontype, uint companionID)
+    {
+        //Logging.pluginDevLog(LogEventLevel.Warning,"ownerkind is " + thisptr->OwnerObject->ObjectKind);
+        Companion* tempout = _companionPropsHook!.Original(thisptr, companiontype, companionID);
+        Companion* companionobject = (Companion*)thisptr;
+        if (companionobject==null) return tempout;
+        var ownerobject = companionobject->GetParentCharacter();
+        if (ownerobject == null) return tempout;
+        //type 1 = companion 2 = followmount
+        if ((ownerobject->GetName().ToString() == Service.PlayerState.CharacterName)
+            && (ownerobject->HomeWorld == Service.PlayerState.HomeWorld.RowId)
+            && (companionID != 0))
+        {
+            if ((companiontype == 1))
+            {
+                var thiscompanion = CompanionDetourManager.GetReplacement(companionID);
+                companionobject->InactiveIdle[0] = thiscompanion.InactiveIdle0;
+                companionobject->InactiveIdle[1] = thiscompanion.InactiveIdle1;
+                companionobject->InactiveBattle = thiscompanion.InactiveBattle;
+                companionobject->InactiveWandering = thiscompanion.InactiveWandering;
+                companionobject->Behavior = (CompanionMove)thiscompanion.Behaviour;
+                companionobject->Special = thiscompanion.Special;
+                //unknown10
+                //unknown11
+                companionobject->WanderingWait = thiscompanion.WanderingWait;
+                //companionobject->Priority = thiscompanion.Priority;
+                //unknown5
+                //unknown6
+                //unknown7
+                //unknown8
+                //unknown9
+                companionobject->Enemy = thiscompanion.Enemy;
+                companionobject->IsBattle = thiscompanion.IsBattle;
+            }
+        }
+
+        return tempout;
+    }
+    
     public void Dispose()
     {
         // When we're done, disable the hook again and clean up. Dispose does this in one go!
         this._WalkAnimSpeedHook.Dispose();
         this._RunAnimSpeedHook.Dispose();
+        this._companionPropsHook.Dispose();
     }
 }

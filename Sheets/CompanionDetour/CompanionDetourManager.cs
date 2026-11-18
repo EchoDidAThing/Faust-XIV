@@ -71,7 +71,24 @@ public static class CompanionDetourManager
             replacement = new CompanionDetourReplace(
                 motionwalk / 100,
                 motionrun / 100,
-                act?.Scale ?? 0
+                act?.Scale ?? 0,
+                act?.InactiveIdle0 ?? 0,
+                act?.InactiveIdle1 ?? 0,
+                act?.InactiveBattle ?? 0,
+                act?.InactiveWandering ?? 0,
+                (byte)(act?.Behavior.RowId ?? 0),
+                act?.Special ?? 0,
+                act?.Unknown10 ?? 0,
+                act?.Unknown11 ?? 0,
+                act?.WanderingWait ?? 0,
+                act?.Priority ?? 0,
+                act?.Unknown5 ?? false,
+                act?.Unknown6 ?? false,
+                act?.Unknown7 ?? false,
+                act?.Unknown8 ?? false,
+                act?.Unknown9 ?? false,
+                act?.Enemy ?? 0,
+                act?.Battle ?? false
                 );
         }
         return replacement!;
