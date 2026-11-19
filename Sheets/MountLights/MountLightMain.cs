@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using FFXIVClientStructs.FFXIV.Client.Graphics.Render;
 using static FFXIVClientStructs.FFXIV.Client.UI.Misc.AozNoteModule;
 #pragma warning disable CA1416 // Validate platform compatibility
 
@@ -17,9 +18,9 @@ namespace Faust.Sheets;
 #region Main
 public class MountLightMain
 {
-    const string type = "MountLight";
-    const string typename = "MountLight";
-    const string typenameplural = "MountLights";
+    const string type = "Mount Light";
+    const string typename = "Mount Light";
+    const string typenameplural = "Mount Lights";
     private static string lastsearch = "";
     private static string localsearch = "";
     private static Dictionary<uint, string> SearchList = UiGlobals.CreateSearchList(type);
@@ -58,12 +59,22 @@ public class MountLightMain
 
                     
                     #region Datainputs
-                    /*UiGlobals.DrawUInt("Ride BGM Path", type, key, enablechanges, ref LocalWriter.Replacement.BGMIndex, old.BGMIndex, true, ["BGM_Path"]);
-                    UiGlobals.DrawInt("Rise/Sink Tilt Angle", type, key, enablechanges, ref LocalWriter.Replacement.RiseSinkTilt, old.RiseSinkTilt);
-                    UiGlobals.DrawInt("Ground Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.GroundAnimationSpeed, old.GroundAnimationSpeed);
-                    UiGlobals.DrawInt("Flight Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.FlightAnimationSpeed, old.FlightAnimationSpeed);
-                    UiGlobals.DrawInt("Swim Animation Speed", type, key, enablechanges, ref LocalWriter.Replacement.SwimAnimationSpeed, old.SwimAnimationSpeed);
-                    */
+                    UiGlobals.DrawComboEnum<uint>("Light Shape", type, key, enablechanges, ref LocalWriter.Replacement.LightShape, old.LightShape, typeof(LightShape));
+                    UiGlobals.DrawBool("Visible", type, key, enablechanges, ref LocalWriter.Replacement.Visible, old.Visible);
+                    UiGlobals.DrawUInt("Bone Index", type, key, enablechanges, ref LocalWriter.Replacement.BoneIndex, old.BoneIndex);
+                    UiGlobals.DrawVector3("Location Offsets", type, key, enablechanges, ref LocalWriter.Replacement.Locoffsets, old.Locoffsets);
+                    UiGlobals.DrawVector4("Rotation Offsets", type, key, enablechanges, ref LocalWriter.Replacement.Rotoffsets, old.Rotoffsets);
+                    UiGlobals.DrawVector3("Scale Offsets", type, key, enablechanges, ref LocalWriter.Replacement.Scaleoffsets, old.Scaleoffsets);
+                    UiGlobals.DrawVector3("Colour", type, key, enablechanges, ref LocalWriter.Replacement.Colour, old.Colour);
+                    UiGlobals.DrawFloat("Intensity", type, key, enablechanges, ref LocalWriter.Replacement.Intensity, old.Intensity);
+                    UiGlobals.DrawFloat("Range", type, key, enablechanges, ref LocalWriter.Replacement.Range, old.Range);
+                    UiGlobals.DrawFloat("Character Shadow Range", type, key, enablechanges, ref LocalWriter.Replacement.CharShadowRange, old.CharShadowRange);
+                    UiGlobals.DrawFloat("Shadow Plane Near", type, key, enablechanges, ref LocalWriter.Replacement.ShadowPlaneNear, old.ShadowPlaneNear);
+                    UiGlobals.DrawFloat("Shadow Plane Far", type, key, enablechanges, ref LocalWriter.Replacement.ShadowPlaneFar, old.ShadowPlaneFar);
+                    UiGlobals.DrawComboEnum<uint>("Falloff Type", type, key, enablechanges, ref LocalWriter.Replacement.FalloffType, old.FalloffType, typeof(LightFalloffType));
+                    UiGlobals.DrawFloat("Falloff Factor", type, key, enablechanges, ref LocalWriter.Replacement.FalloffFactor, old.FalloffFactor);
+                    UiGlobals.DrawVector2("Flat Light Skew Angle", type, key, enablechanges, ref LocalWriter.Replacement.FlatLightSkewAngleDegrees, old.FlatLightSkewAngleDegrees);
+                    UiGlobals.DrawFloat("Spotlight Angle", type, key, enablechanges, ref LocalWriter.Replacement.SpotLightAngleDegrees, old.SpotLightAngleDegrees);
 
                     UiGlobals.DrawItemSeparator();
                     continue;

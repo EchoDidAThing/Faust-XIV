@@ -548,6 +548,95 @@ public class UiGlobals
         ImGui.SameLine();
         ImGui.TextUnformatted(name);
     }
+    
+    public static void DrawVector4(string name, string type, uint key, bool changesenabled, ref Vector4 value,
+        Vector4 defaultvalue, bool sheethasindirects = false, List<string> indirecttype = null)
+    {
+        Vector4 relay = value;
+        if (indirecttype == null) { indirecttype = ["NO"]; }
+        string refname = name.Replace(" ", "");
+        if (ImGui.InputFloat4("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
+        {
+            value = relay;
+            Service.Config.Save();
+        }
+        ImGui.SameLine();
+
+        using (ImRaii.PushFont(UiBuilder.IconFont))
+        {
+            if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
+            {
+                value = defaultvalue;
+                Service.Config.Save();
+            }
+        }
+        ImGui.SameLine();
+        ImGui.TextUnformatted(name);
+        if (sheethasindirects)
+        {
+            //FIX THE RESOLVER
+            //ResolveIndirectDraw(indirecttype, refname, key, (uint)value);
+        }
+    }
+    
+    public static void DrawVector3(string name, string type, uint key, bool changesenabled, ref Vector3 value,
+        Vector3 defaultvalue, bool sheethasindirects = false, List<string> indirecttype = null)
+    {
+        Vector3 relay = value;
+        if (indirecttype == null) { indirecttype = ["NO"]; }
+        string refname = name.Replace(" ", "");
+        if (ImGui.InputFloat3("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
+        {
+            value = relay;
+            Service.Config.Save();
+        }
+        ImGui.SameLine();
+
+        using (ImRaii.PushFont(UiBuilder.IconFont))
+        {
+            if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
+            {
+                value = defaultvalue;
+                Service.Config.Save();
+            }
+        }
+        ImGui.SameLine();
+        ImGui.TextUnformatted(name);
+        if (sheethasindirects)
+        {
+            //FIX THE RESOLVER
+            //ResolveIndirectDraw(indirecttype, refname, key, (uint)value);
+        }
+    }
+    public static void DrawVector2(string name, string type, uint key, bool changesenabled, ref Vector2 value,
+        Vector2 defaultvalue, bool sheethasindirects = false, List<string> indirecttype = null)
+    {
+        Vector2 relay = value;
+        if (indirecttype == null) { indirecttype = ["NO"]; }
+        string refname = name.Replace(" ", "");
+        if (ImGui.InputFloat2("##" + refname + key, ref relay, 0, 0, default, ImGuiInputTextFlags.EnterReturnsTrue))
+        {
+            value = relay;
+            Service.Config.Save();
+        }
+        ImGui.SameLine();
+
+        using (ImRaii.PushFont(UiBuilder.IconFont))
+        {
+            if (ImGui.Button($"{FontAwesomeIcon.Reply.ToIconString()}##{refname}{key}"))
+            {
+                value = defaultvalue;
+                Service.Config.Save();
+            }
+        }
+        ImGui.SameLine();
+        ImGui.TextUnformatted(name);
+        if (sheethasindirects)
+        {
+            //FIX THE RESOLVER
+            //ResolveIndirectDraw(indirecttype, refname, key, (uint)value);
+        }
+    }
 
 
     public static Dictionary<uint, string> CreateSearchList(string type)
@@ -572,6 +661,9 @@ public class UiGlobals
                 return output;
             case "Mount UI":
                 output = MountTransientsManager.Names;
+                return output;
+            case "Mount Light":
+                output = MountLightManager.Names;
                 return output;
             case "Ornament UI":
                 output = OrnamentTransientsManager.Names;
@@ -609,6 +701,9 @@ public class UiGlobals
                 return output;
             case "Mount UI":
                 output = (uint)activeset.MountTransientsWriter.Count();
+                return output;
+            case "Mount Lights":
+                output = (uint)activeset.MountLightWriter.Count();
                 return output;
             case "Ornament UI":
                 output = (uint)activeset.OrnamentTransientsWriter.Count();

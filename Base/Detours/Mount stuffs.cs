@@ -41,6 +41,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using FFXIVClientStructs.FFXIV.Client.Graphics.Render;
 using Lumina.Excel.Sheets;
 using Serilog.Events;
 using static FFXIVClientStructs.FFXIV.Client.UI.AddonRelicNoteBook;
@@ -48,6 +49,7 @@ using static FFXIVClientStructs.FFXIV.Client.UI.Agent.AgentActionDetail.Delegate
 using static FFXIVClientStructs.FFXIV.Client.UI.ListPanel.Delegates;
 using static Lumina.Data.Parsing.Uld.NodeData;
 using static System.Net.Mime.MediaTypeNames;
+using Light = FFXIVClientStructs.FFXIV.Client.Graphics.Scene.Light;
 
 namespace ActionTimelineReplace.Base.Detours;
 
@@ -78,7 +80,8 @@ public unsafe class Mountstuffs : IDisposable
         byte Race;
         
     }
-    
+
+    public Light* CurMountLight;
     public bool BGMPathUpdate = false;
     public uint MountID = 0;
     public SoundManager* lastSoundManager;
@@ -227,6 +230,18 @@ public unsafe class Mountstuffs : IDisposable
             {
                 mountObject->Scale = (curvalue.Scale.GetByRaceAndSex(ownerObject->DrawData.CustomizeData.Race, ownerObject->GetSex())/100f);
                 MountID = thisptr->MountId;
+                var Origlightvalue = MountLightManager.GetOriginal(thisptr->MountId);
+                var curlightvalue = MountLightManager.GetReplacement(thisptr->MountId);
+                if (CurMountLight == null)
+                {
+                    //FIX THIS TO CHECK IF UPDATED
+                    //if (Origlightvalue == curlightvalue) return;
+                    CurMountLight = LightProcess.AddLight(curlightvalue);
+                    Logging.pluginDevLog(LogEventLevel.Error,"Light created for mount! ID:" + MountID);
+                }
+
+                if (CurMountLight == null) return;
+                LightProcess.UpdatePos(CurMountLight, mountObject,curlightvalue);
             }
             if (ownerObject != null)
             {
@@ -239,6 +254,10 @@ public unsafe class Mountstuffs : IDisposable
     private void MountDismountDetour(MountContainer* a1, char* a2)
     {
         _MountDismountHook!.Original(a1, a2);
+        if (CurMountLight != null)
+        {
+            LightProcess.RemoveLight(ref CurMountLight);
+        }
         if (lastSoundManager == null) return;
         if (a1->OwnerObject->GetName().ToString() != Service.PlayerState.CharacterName) return;
         foreach (var soundData in lastSoundManager->SoundDataPool->Entries)
@@ -256,6 +275,7 @@ public unsafe class Mountstuffs : IDisposable
 
     public void Dispose()
     {
+        if (CurMountLight != null) LightProcess.RemoveLight(ref CurMountLight);
         // When we're done, disable the hook again and clean up. Dispose does this in one go!
         this._SetupMountTiltDataHook.Dispose();
         this._SetupRiderTiltDataHook.Dispose();

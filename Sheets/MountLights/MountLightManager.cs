@@ -4,6 +4,8 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Render;
 using Lumina.Excel.Sheets;
+using Quaternion = FFXIVClientStructs.FFXIV.Common.Math.Quaternion;
+
 #pragma warning disable CA1416 // Validate platform compatibility
 
 namespace Faust.Sheets;
@@ -12,7 +14,7 @@ public static class MountLightManager
 {
     private static Dictionary<uint, string>? _Names;
 
-    private static readonly Dictionary<uint, MountLightReplace> old = [];
+    private static readonly Dictionary<uint, LightReplace> old = [];
 
     public static Dictionary<uint, string> Names => _Names
         ??= Service.DataManager.GetExcelSheet<Mount>()
@@ -27,14 +29,14 @@ public static class MountLightManager
         return Names.GetValueOrDefault(id, "Unknown");
     }
 
-    public static MountLightReplace GetReplacement(uint idx)
+    public static LightReplace GetReplacement(uint idx)
         => GetConfig(idx) ?? GetOriginal(idx);
 
-    private static MountLightReplace? GetConfig(uint idx)
+    private static LightReplace? GetConfig(uint idx)
     {
         if (!Service.Config.EnableReplacement) return null;
 
-        List<KeyValuePair<int, MountLightReplace>> replacements = [];
+        List<KeyValuePair<int, LightReplace>> replacements = [];
 
         foreach (var item in Service.Config.ReplacementSets)
         {
@@ -46,7 +48,7 @@ public static class MountLightManager
             {
                 if (replacement.Key != idx) continue;
                 if (!replacement.Value.Enabled) continue;
-                replacements.Add(new KeyValuePair<int, MountLightReplace>(item.Priority, replacement.Value.Replacement));
+                replacements.Add(new KeyValuePair<int, LightReplace>(item.Priority, replacement.Value.Replacement));
 
             }
         }
@@ -59,21 +61,25 @@ public static class MountLightManager
         return null;
     }
 
-    public static MountLightReplace GetOriginal(uint idx)
+    public static LightReplace GetOriginal(uint idx)
     {
         ref var replacement = ref CollectionsMarshal.GetValueRefOrAddDefault(old, idx, out var exists);
         if (!exists)
         {
-            replacement = new MountLightReplace(
-                LightShape.PointLight,
+            replacement = new LightReplace(
+                2u, 
                 false,
-                new Vector3(1f,1f,1f),
+                0,
+                new Vector3(0f,0f,0f),
+                new Vector4(0f,0f,0f, 0f),
+                new Vector3(0f,0f,0f),
+                new Vector3(1.0f,1.0f,1.0f),
                 1f,
                 20f,
                 20f,
                 0.01f,
                 20f,
-                LightFalloffType.Quadratic,
+                0u,
                 1f,
                 new Vector2(0f,0f),
                 45f

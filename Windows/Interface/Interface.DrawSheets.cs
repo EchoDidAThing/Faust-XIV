@@ -24,6 +24,7 @@ public sealed partial class ConfigWindow : Window
     private string _searchJobTransients = string.Empty;
     private string _searchMountDetour = string.Empty;
     private string _searchMountTransients = string.Empty;
+    private string _searchMountLights = string.Empty;
     private string _searchOrnamentTransients = string.Empty;
     private string _searchStatusTransients = string.Empty;
     private string _searchTraitTransients = string.Empty;
@@ -43,6 +44,7 @@ public sealed partial class ConfigWindow : Window
             //_allHeaders.Add("Trait UI", []);
             _allHeaders.Add("Minion Properties", []);
             _allHeaders.Add("Mount Properties", []);
+            _allHeaders.Add("Mount Lights", []);
             //_AllHeaders.Add("PointMenuChoice", []);
 
         }
@@ -81,6 +83,9 @@ public sealed partial class ConfigWindow : Window
                 break;
             case "Trait UI":
                 TraitTransientsMain.Draw(activesheet, ref _activeSet, ref _searchTraitTransients);
+                break;
+            case "Mount Lights":
+                MountLightMain.Draw(activesheet, ref _activeSet, ref _searchMountLights);
                 break;
             case "NONE":
                 break;

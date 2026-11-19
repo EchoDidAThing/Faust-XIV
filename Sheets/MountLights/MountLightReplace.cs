@@ -9,42 +9,13 @@ using System.Runtime.InteropServices;
 namespace Faust.Sheets;
 
 
-public class MountLightConfig(MountLightReplace replace, bool enabled)
+public class MountLightConfig(LightReplace replace, bool enabled)
 {
     public bool Enabled = enabled;
-    public MountLightReplace Replacement = replace;
+    public LightReplace Replacement = replace;
     public static MountLightConfig CreateEntry(uint key)
     {
-        MountLightReplace originalvalues = MountLightManager.GetOriginal(key);
+        LightReplace originalvalues = MountLightManager.GetOriginal(key);
         return new MountLightConfig(originalvalues, false);
     }
-}
-
-public class MountLightReplace(
-    LightShape shape,
-    bool visible,
-    Vector3 colour,
-    float intensity,
-    float range,
-    float charShadowRange,
-    float shadowPlaneNear,
-    float shadowPlaneFar,
-    LightFalloffType falloffType,
-    float falloffFactor,
-    Vector2 flatLightSkewAngleDegrees,
-    float spotLightAngleDegrees)
-{
-    public LightShape LightShape = shape;
-    //int FloatHeight = floatHeight;
-    public bool Visible = visible;
-    public Vector3 Colour = colour;
-    public float Intensity = intensity;
-    public float Range = range;
-    public float CharShadowRange = charShadowRange;
-    public float ShadowPlaneNear = shadowPlaneNear;
-    public float ShadowPlaneFar = shadowPlaneFar;
-    public LightFalloffType FalloffType = falloffType;
-    public float FalloffFactor= falloffFactor;
-    public Vector2 FlatLightSkewAngleDegrees = flatLightSkewAngleDegrees;
-    public float SpotLightAngleDegrees = spotLightAngleDegrees;
 }
