@@ -20,8 +20,7 @@ public class LightReplace(
     float intensity,
     float range,
     float charShadowRange,
-    float shadowPlaneNear,
-    float shadowPlaneFar,
+    Vector2 shadowplane,
     uint falloffType,
     float falloffFactor,
     Vector2 flatLightSkewAngleDegrees,
@@ -37,8 +36,7 @@ public class LightReplace(
     public float Intensity = intensity;
     public float Range = range;
     public float CharShadowRange = charShadowRange;
-    public float ShadowPlaneNear = shadowPlaneNear;
-    public float ShadowPlaneFar = shadowPlaneFar;
+    public Vector2 ShadowPlane = shadowplane;
     public uint FalloffType = falloffType;
     public float FalloffFactor= falloffFactor;
     public Vector2 FlatLightSkewAngleDegrees = flatLightSkewAngleDegrees;

@@ -234,9 +234,7 @@ public unsafe class Mountstuffs : IDisposable
                 var curlightvalue = MountLightManager.GetReplacement(thisptr->MountId);
                 if (CurMountLight == null)
                 {
-                    //FIX THIS TO CHECK IF UPDATED
-                    //if (Origlightvalue == curlightvalue) return;
-                    CurMountLight = LightProcess.AddLight(curlightvalue);
+                    CurMountLight = LightProcess.AddLight(curlightvalue, "Mount_Light");
                     Logging.pluginDevLog(LogEventLevel.Error,"Light created for mount! ID:" + MountID);
                 }
 
